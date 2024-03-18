@@ -19,16 +19,33 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import { useAppDispatch } from "../../store/hooks";
+import { loginAsync } from "../../services/auth.service";
+import { loginUser } from "../../store/auth/actions";
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const hiddenImage = useMediaQuery<Theme>((theme) =>
     theme.breakpoints.down("md")
   );
 
-  function handleClickShowPassword() {
+  function handleShowPasswordClick() {
     setShowPassword((show) => !show);
+  }
+
+  async function handleLoginClick() {
+    try {
+      const { data } = await loginAsync("user@example.com", "stringst");
+      dispatch(loginUser(data));
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -102,7 +119,7 @@ export function LoginPage() {
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
-                          onClick={handleClickShowPassword}
+                          onClick={handleShowPasswordClick}
                           edge="end"
                         >
                           {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -127,7 +144,12 @@ export function LoginPage() {
                 </Link>
               </Box>
 
-              <Button fullWidth variant="contained" size="large">
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                onClick={handleLoginClick}
+              >
                 ENTRAR
               </Button>
 

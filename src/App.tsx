@@ -1,6 +1,8 @@
-import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 
+import { store } from "./store";
 import { AppRoutes } from "./routes";
 
 const theme = createTheme({
@@ -11,12 +13,14 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

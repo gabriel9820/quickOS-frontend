@@ -16,15 +16,14 @@ const routes: PrivateRoute[] = [
 
 export function PrivateRoutes(
   isLoggedIn: boolean,
-  userRole: Role
+  role: Role | undefined
 ): RouteObject {
-  const filteredRoutes = routes.filter((route) =>
-    route.roles.includes(userRole)
-  );
+  const roleRoutes =
+    isLoggedIn && role ? routes.filter((r) => r.roles.includes(role)) : [];
 
   return {
     path: "/",
     element: isLoggedIn ? <PrivateLayout /> : <Navigate to="/login" />,
-    children: filteredRoutes,
+    children: roleRoutes,
   };
 }

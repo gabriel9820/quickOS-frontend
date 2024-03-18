@@ -1,12 +1,22 @@
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 
-import { Role } from "../enums/role.enum";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { AuthRoutes } from "./AuthRoutes";
+import { useAppSelector } from "../store/hooks";
 
 export function AppRoutes() {
-  const isLoggedIn = false;
-  const role = Role.Admin;
+  const { isLoggedIn, user } = useAppSelector((state) => state.auth);
 
-  return useRoutes([PrivateRoutes(isLoggedIn, role), AuthRoutes(isLoggedIn)]);
+  return useRoutes([
+    PrivateRoutes(isLoggedIn, user?.role),
+    AuthRoutes(isLoggedIn),
+    {
+      path: "/*",
+      element: isLoggedIn ? (
+        <Navigate to="/dashboard" />
+      ) : (
+        <Navigate to="/login" />
+      ),
+    },
+  ]);
 }
