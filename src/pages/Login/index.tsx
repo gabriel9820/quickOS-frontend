@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { loginAsync } from "../../services/auth.service";
 import { loginUser } from "../../store/auth/actions";
+import loginImage from "../../assets/login-image.jpg";
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -84,7 +85,7 @@ export function LoginPage() {
 
               <CardMedia
                 component="img"
-                image="src/assets/login-image.jpg"
+                image={loginImage}
                 alt="barbeiro"
                 sx={{ height: "100%", opacity: "50%" }}
               />
