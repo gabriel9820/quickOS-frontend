@@ -20,13 +20,20 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAppDispatch } from "../../store/hooks";
 import { loginAsync } from "../../services/auth.service";
 import { loginUser } from "../../store/auth/actions";
 import loginImage from "../../assets/login-image.jpg";
+import { CustomForm } from "../../components/Form";
+import { LoginFormData, loginFormSchema } from "./schemas";
 
 export function LoginPage() {
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginFormSchema),
+  });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -39,9 +46,9 @@ export function LoginPage() {
     setShowPassword((show) => !show);
   }
 
-  async function handleLoginClick() {
+  async function handleLoginClick(formData: LoginFormData) {
     try {
-      const { data } = await loginAsync("user@example.com", "stringst");
+      const { data } = await loginAsync(formData.email, formData.password);
       dispatch(loginUser(data));
       navigate("/dashboard");
     } catch (error) {
@@ -104,63 +111,85 @@ export function LoginPage() {
             >
               <Typography variant="h4">LOGIN</Typography>
 
-              <Box>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  margin="dense"
-                />
-
-                <FormControl fullWidth margin="dense">
-                  <InputLabel htmlFor="password">Senha</InputLabel>
-                  <OutlinedInput
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={handleShowPasswordClick}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Senha"
+              <CustomForm form={form} onSubmit={handleLoginClick}>
+                <Box>
+                  <CustomForm.Field
+                    name="email"
+                    render={{
+                      uncontrolled: ({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          label="Email"
+                          type="email"
+                          margin="dense"
+                        />
+                      ),
+                    }}
                   />
-                </FormControl>
+
+                  <CustomForm.Field
+                    name="password"
+                    render={{
+                      uncontrolled: ({ field }) => (
+                        <FormControl fullWidth margin="dense">
+                          <InputLabel htmlFor="password">Senha</InputLabel>
+                          <OutlinedInput
+                            {...field}
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={handleShowPasswordClick}
+                                  edge="end"
+                                >
+                                  {showPassword ? (
+                                    <VisibilityOff />
+                                  ) : (
+                                    <Visibility />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                            label="Senha"
+                          />
+                        </FormControl>
+                      ),
+                    }}
+                  />
+
+                  <Link
+                    variant="overline"
+                    sx={{
+                      float: "right",
+                      color: "text.primary",
+                      textDecoration: "none",
+                      fontSize: 11,
+                    }}
+                    href="/forgot-password"
+                  >
+                    Esqueceu sua senha?
+                  </Link>
+                </Box>
+
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  type="submit"
+                >
+                  ENTRAR
+                </Button>
 
                 <Link
                   variant="overline"
-                  sx={{
-                    float: "right",
-                    color: "text.primary",
-                    textDecoration: "none",
-                    fontSize: 11,
-                  }}
-                  href="/forgot-password"
+                  sx={{ textDecoration: "none" }}
+                  href="/register"
                 >
-                  Esqueceu sua senha?
+                  Criar uma Conta
                 </Link>
-              </Box>
-
-              <Button
-                fullWidth
-                variant="contained"
-                size="large"
-                onClick={handleLoginClick}
-              >
-                ENTRAR
-              </Button>
-
-              <Link
-                variant="overline"
-                sx={{ textDecoration: "none" }}
-                href="/register"
-              >
-                Criar uma Conta
-              </Link>
+              </CustomForm>
             </Grid>
           </Grid>
         </CardContent>
