@@ -1,4 +1,6 @@
-import { Box, Button, Link, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Link, TextField, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -17,10 +19,14 @@ export function ForgotPasswordPage() {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
 
   async function handleSendEmailClick(formData: ForgotPasswordFormData) {
     try {
+      setLoading(true);
       await forgotPasswordAsync(formData.email);
+      setLoading(false);
+
       dispatch(
         addNotification({
           type: "success",
@@ -29,6 +35,7 @@ export function ForgotPasswordPage() {
       );
       navigate("/login");
     } catch (error) {
+      setLoading(false);
       handleError(error, dispatch);
     }
   }
@@ -59,7 +66,8 @@ export function ForgotPasswordPage() {
           }}
         />
 
-        <Button
+        <LoadingButton
+          loading={loading}
           fullWidth
           variant="contained"
           size="large"
@@ -67,7 +75,7 @@ export function ForgotPasswordPage() {
           sx={{ mt: 1 }}
         >
           ENVIAR EMAIL
-        </Button>
+        </LoadingButton>
       </CustomForm>
 
       <Box>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
-  Button,
   FormControl,
   IconButton,
   InputAdornment,
@@ -12,6 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,6 +31,7 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   function handleShowPasswordClick() {
     setShowPassword((show) => !show);
@@ -38,10 +39,14 @@ export function LoginPage() {
 
   async function handleLoginClick(formData: LoginFormData) {
     try {
+      setLoading(true);
       const { data } = await loginAsync(formData.email, formData.password);
+      setLoading(false);
+
       dispatch(loginUser(data));
       navigate("/dashboard");
     } catch (error) {
+      setLoading(false);
       handleError(error, dispatch);
     }
   }
@@ -108,7 +113,8 @@ export function LoginPage() {
           </Link>
         </Box>
 
-        <Button
+        <LoadingButton
+          loading={loading}
           fullWidth
           variant="contained"
           size="large"
@@ -116,7 +122,7 @@ export function LoginPage() {
           sx={{ mt: 4 }}
         >
           ENTRAR
-        </Button>
+        </LoadingButton>
 
         <Link
           variant="overline"
