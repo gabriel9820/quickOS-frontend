@@ -3,6 +3,7 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 
 import { store } from "./store";
+import { NotificationBar } from "./components/Notification";
 import { AppRoutes } from "./routes";
 
 const theme = createTheme({
@@ -16,6 +17,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <NotificationBar />
         <BrowserRouter>
           <AppRoutes />
         </BrowserRouter>
