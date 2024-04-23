@@ -33,7 +33,11 @@ export function AccountCard({ children }: PropsWithChildren) {
             <Grid
               item
               xs={6}
-              sx={{ display: { xs: "none", md: "block" }, background: "#000" }}
+              sx={{
+                display: { xs: "none", md: "block" },
+                background: "#000",
+                width: 500,
+              }}
             >
               <Link
                 variant="overline"
@@ -55,7 +59,7 @@ export function AccountCard({ children }: PropsWithChildren) {
                 component="img"
                 image={loginImage}
                 alt="barbeiro"
-                sx={{ height: "100%", opacity: "50%" }}
+                sx={{ height: "100%", opacity: "25%" }}
               />
             </Grid>
 
@@ -68,6 +72,7 @@ export function AccountCard({ children }: PropsWithChildren) {
                 flexDirection: "column",
                 textAlign: "center",
                 justifyContent: "space-around",
+                width: 600,
               }}
             >
               {children}
