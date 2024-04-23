@@ -1,3 +1,5 @@
+import { AccountCard } from "../../components/AccountCard";
+
 export function RegisterPage() {
-  return <div>Register</div>;
+  return <AccountCard>Register</AccountCard>;
 }
