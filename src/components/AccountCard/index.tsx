@@ -44,13 +44,13 @@ export function AccountCard({ children }: PropsWithChildren) {
                 sx={{
                   color: "text.primary",
                   textDecoration: "none",
-                  fontSize: 11,
+                  fontSize: 10,
                   position: "absolute",
                   zIndex: 1,
                   opacity: "40%",
                   marginLeft: 1,
                 }}
-                href="https://br.freepik.com/fotos-gratis/o-tecnico-consertando-o-computador-hardware-de-computador-consertando-atualize-e-tecnologia_4334582.htm#fromView=search&page=1&position=5&uuid=6c659287-656b-4e45-9802-0b8049b9008c"
+                href="https://br.freepik.com/fotos-gratis/o-tecnico-consertando-o-computador-hardware-de-computador-consertando-atualize-e-tecnologia_4334590.htm#fromView=search&page=1&position=11&uuid=4525a991-300f-46ce-8a1b-2579bfe8f493"
               >
                 Imagem de jcomp no Freepik
               </Link>
@@ -59,7 +59,7 @@ export function AccountCard({ children }: PropsWithChildren) {
                 component="img"
                 image={loginImage}
                 alt="barbeiro"
-                sx={{ height: "100%", opacity: "25%" }}
+                sx={{ height: "100%", opacity: "40%" }}
               />
             </Grid>
 
