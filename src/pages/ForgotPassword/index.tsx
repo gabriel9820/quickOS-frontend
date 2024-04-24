@@ -43,7 +43,7 @@ export function ForgotPasswordPage() {
   return (
     <AccountCard>
       <Box>
-        <Typography variant="h4">Esqueceu sua senha?</Typography>
+        <Typography variant="h5">ESQUECEU SUA SENHA?</Typography>
 
         <Typography sx={{ color: "text.secondary", mt: 1 }}>
           Informe seu email e enviaremos um link para a redefinição da senha.
@@ -74,7 +74,7 @@ export function ForgotPasswordPage() {
           type="submit"
           sx={{ mt: 1 }}
         >
-          ENVIAR EMAIL
+          ENVIAR
         </LoadingButton>
       </CustomForm>
 
