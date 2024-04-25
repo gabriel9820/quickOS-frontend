@@ -3,14 +3,26 @@ import { addNotification } from "../store/notification/actions";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function handleError(error: any, dispatch: AppDispatch) {
+  let message = "Ocorreu um erro inesperado";
+
+  if (error?.response?.data?.message) {
+    message = error?.response?.data?.message;
+  } else if (error?.response?.data?.errors) {
+    message = "";
+    const errorObj = error?.response?.data?.errors;
+    Object.keys(errorObj).forEach((key) => {
+      message += `${key}: ${errorObj[key].join(", ")}\n`;
+    });
+  } else if (error?.response?.data) {
+    message = error?.response?.data;
+  } else if (error?.message) {
+    message = error?.message;
+  }
+
   dispatch(
     addNotification({
       type: "error",
-      message:
-        error?.response?.data?.message ||
-        error?.response?.data ||
-        error?.message ||
-        "Ocorreu um erro inesperado",
+      message,
     })
   );
 }
