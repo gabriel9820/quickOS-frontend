@@ -14,7 +14,13 @@ const title = {
 const CustomAlert = React.forwardRef<HTMLDivElement, AlertProps>(
   function CustomAlert(props, ref) {
     return (
-      <Alert elevation={6} ref={ref} variant="filled" {...props}>
+      <Alert
+        elevation={6}
+        ref={ref}
+        variant="filled"
+        {...props}
+        sx={{ whiteSpace: "pre-line" }}
+      >
         <AlertTitle>{title[props.severity!]}</AlertTitle>
         {props.children}
       </Alert>
@@ -37,7 +43,7 @@ export function NotificationBar() {
   return (
     <Snackbar
       open={true}
-      autoHideDuration={5000}
+      autoHideDuration={notification.type === "error" ? 8000 : 4000}
       onClose={handleClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >

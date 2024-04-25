@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-  Box,
   FormControl,
   IconButton,
   InputAdornment,
@@ -56,62 +55,57 @@ export function LoginPage() {
       <Typography variant="h4">LOGIN</Typography>
 
       <CustomForm form={form} onSubmit={handleLoginClick}>
-        <Box>
-          <CustomForm.Field
-            name="email"
-            render={{
-              uncontrolled: ({ field }) => (
-                <TextField
+        <CustomForm.Field
+          name="email"
+          render={{
+            uncontrolled: ({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Email"
+                type="email"
+                margin="dense"
+              />
+            ),
+          }}
+        />
+
+        <CustomForm.Field
+          name="password"
+          render={{
+            uncontrolled: ({ field }) => (
+              <FormControl fullWidth margin="dense">
+                <InputLabel htmlFor="password">Senha</InputLabel>
+                <OutlinedInput
                   {...field}
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  margin="dense"
+                  id="password"
+                  label="Senha"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleShowPasswordClick} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
-              ),
-            }}
-          />
+              </FormControl>
+            ),
+          }}
+        />
 
-          <CustomForm.Field
-            name="password"
-            render={{
-              uncontrolled: ({ field }) => (
-                <FormControl fullWidth margin="dense">
-                  <InputLabel htmlFor="password">Senha</InputLabel>
-                  <OutlinedInput
-                    {...field}
-                    id="password"
-                    label="Senha"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={handleShowPasswordClick}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
-              ),
-            }}
-          />
-
-          <Link
-            variant="overline"
-            sx={{
-              float: "right",
-              color: "text.primary",
-              textDecoration: "none",
-              fontSize: 11,
-            }}
-            href="/forgot-password"
-          >
-            Esqueceu sua senha?
-          </Link>
-        </Box>
+        <Link
+          variant="overline"
+          sx={{
+            float: "right",
+            color: "text.primary",
+            textDecoration: "none",
+            fontSize: 11,
+          }}
+          href="/forgot-password"
+        >
+          Esqueceu sua senha?
+        </Link>
 
         <LoadingButton
           loading={loading}
@@ -123,15 +117,11 @@ export function LoginPage() {
         >
           ENTRAR
         </LoadingButton>
-
-        <Link
-          variant="overline"
-          sx={{ textDecoration: "none" }}
-          href="/register"
-        >
-          Criar uma Conta
-        </Link>
       </CustomForm>
+
+      <Link variant="overline" sx={{ textDecoration: "none" }} href="/register">
+        Criar Conta
+      </Link>
     </AccountCard>
   );
 }

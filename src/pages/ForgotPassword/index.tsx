@@ -78,11 +78,9 @@ export function ForgotPasswordPage() {
         </LoadingButton>
       </CustomForm>
 
-      <Box>
-        <Link variant="overline" sx={{ textDecoration: "none" }} href="/login">
-          Voltar
-        </Link>
-      </Box>
+      <Link variant="overline" sx={{ textDecoration: "none" }} href="/login">
+        Voltar
+      </Link>
     </AccountCard>
   );
 }

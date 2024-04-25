@@ -29,7 +29,7 @@ export function AccountCard({ children }: PropsWithChildren) {
             "&:last-child": { pb: 0 },
           }}
         >
-          <Grid container sx={{ height: 450 }}>
+          <Grid container sx={{ height: 500 }}>
             <Grid
               item
               xs={6}
