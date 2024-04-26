@@ -22,6 +22,8 @@ import { handleError } from "../../utils/error-handler";
 import { useAppDispatch } from "../../store/hooks";
 import { loginAsync, registerAsync } from "../../services/auth.service";
 import { loginUser } from "../../store/auth/actions";
+import { MaskInput } from "../../components/Form/MaskInput";
+import { cellphoneMask } from "../../utils/masks";
 
 export function RegisterPage() {
   const form = useForm<RegisterFormData>({
@@ -96,6 +98,10 @@ export function RegisterPage() {
                 label="Celular"
                 margin="dense"
                 size="small"
+                InputProps={{
+                  inputComponent: MaskInput,
+                  inputProps: { mask: cellphoneMask },
+                }}
               />
             ),
           }}
@@ -121,7 +127,12 @@ export function RegisterPage() {
           name="password"
           render={{
             uncontrolled: ({ field }) => (
-              <FormControl fullWidth margin="dense" size="small">
+              <FormControl
+                fullWidth
+                margin="dense"
+                size="small"
+                error={field.error}
+              >
                 <InputLabel htmlFor="password">Senha</InputLabel>
                 <OutlinedInput
                   {...field}
