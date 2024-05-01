@@ -32,9 +32,9 @@ export function NotificationBar() {
   const dispatch = useAppDispatch();
   const { notification } = useAppSelector((state) => state.notification);
 
-  const handleClose = () => {
+  function handleClose() {
     dispatch(removeNotification());
-  };
+  }
 
   if (!notification) {
     return null;
