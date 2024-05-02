@@ -74,7 +74,7 @@ export function LoginPage() {
           name="password"
           render={{
             uncontrolled: ({ field }) => (
-              <FormControl fullWidth margin="dense">
+              <FormControl fullWidth margin="dense" error={field.error}>
                 <InputLabel htmlFor="password">Senha</InputLabel>
                 <OutlinedInput
                   {...field}

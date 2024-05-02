@@ -40,11 +40,13 @@ interface CustomFieldProps {
   name: string;
   render: {
     controlled?: (props: {
-      field: Omit<ControllerRenderProps, "ref">;
+      field: Omit<ControllerRenderProps, "ref"> & { error: boolean };
       fieldState: ControllerFieldState;
       formState: UseFormStateReturn<FieldValues>;
     }) => ReactElement;
-    uncontrolled?: (props: { field: UseFormRegisterReturn }) => ReactElement;
+    uncontrolled?: (props: {
+      field: UseFormRegisterReturn & { error: boolean };
+    }) => ReactElement;
   };
 }
 
@@ -62,6 +64,7 @@ CustomForm.Field = function CustomField({ name, render }: CustomFieldProps) {
         render.uncontrolled({
           field: {
             ...register(name),
+            error: !!fieldError,
           },
         })
       ) : (
@@ -69,7 +72,10 @@ CustomForm.Field = function CustomField({ name, render }: CustomFieldProps) {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           render={({ field: { ref, ...field }, ...controlledProps }) =>
             render.controlled ? (
-              render.controlled({ field, ...controlledProps })
+              render.controlled({
+                field: { ...field, error: !!fieldError },
+                ...controlledProps,
+              })
             ) : (
               <></>
             )
