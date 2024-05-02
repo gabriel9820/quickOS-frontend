@@ -9,7 +9,7 @@ import { EmployeesListPage } from "../pages/Employees/List";
 import { EmployeesFormPage } from "../pages/Employees/Form";
 
 type PrivateRoute = RouteObject & {
-  children?: PrivateRoute[];
+  children?: any;
   roles?: Role[];
 };
 
