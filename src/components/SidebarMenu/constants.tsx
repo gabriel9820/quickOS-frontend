@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Person, AttachMoney, Build } from "@mui/icons-material";
+import { Dashboard, Person, AttachMoney, Build } from "@mui/icons-material";
 
 import { Role } from "../../enums/role.enum";
 
@@ -12,6 +12,11 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
+  {
+    label: "Dashboard",
+    icon: <Dashboard />,
+    to: "/dashboard",
+  },
   {
     label: "Cadastros",
     icon: <Person />,
