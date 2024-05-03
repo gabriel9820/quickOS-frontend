@@ -27,7 +27,7 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
             <Menu />
           </IconButton>
 
-          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
+          <Typography sx={{ flexGrow: 1, textAlign: "center", fontSize: 18 }}>
             Nome do Estabelecimento
           </Typography>
         </Toolbar>
