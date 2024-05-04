@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Card } from "@mui/material";
 
 import { SidebarMenu } from "../components/SidebarMenu";
 import { CustomAppBar } from "../components/Appbar";
@@ -13,20 +13,22 @@ export function PrivateLayout() {
   }
 
   return (
-    <>
+    <Box>
       <CustomAppBar isMenuOpen={isMenuOpen} onMenuButtonClick={toggleMenu} />
 
       <SidebarMenu isOpen={isMenuOpen} />
 
-      <Box
+      <Card
         sx={{
-          marginLeft: isMenuOpen ? "250px" : 0,
           transition: "ease 225ms",
+          margin: 5,
+          marginLeft: isMenuOpen ? 36 : 5,
           padding: 5,
+          paddingTop: 4,
         }}
       >
         <Outlet />
-      </Box>
-    </>
+      </Card>
+    </Box>
   );
 }
