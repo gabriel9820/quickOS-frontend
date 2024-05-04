@@ -9,7 +9,7 @@ import { DataTable } from "../../../components/DataTable";
 import { ListTitle } from "../../../components/ListTitle";
 
 export function ServicesListPage() {
-  const { services } = useAppSelector((state) => state.services);
+  const { services, isLoading } = useAppSelector((state) => state.services);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function ServicesListPage() {
   return (
     <Box>
       <ListTitle>Serviços</ListTitle>
-      <DataTable rows={services.data} columns={columns} />
+      <DataTable rows={services.data} columns={columns} loading={isLoading} />
     </Box>
   );
 }
