@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { AccountCard } from "../../components/AccountCard";
-import { CustomForm } from "../../components/Form";
+import { Form } from "../../components/Form";
 import { ForgotPasswordFormData, forgotPasswordFormSchema } from "./schemas";
 import { handleError } from "../../utils/error-handler";
 import { useAppDispatch } from "../../store/hooks";
@@ -50,21 +50,10 @@ export function ForgotPasswordPage() {
         </Typography>
       </Box>
 
-      <CustomForm form={form} onSubmit={handleSendEmailClick}>
-        <CustomForm.Field
-          name="email"
-          render={{
-            uncontrolled: ({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Email"
-                type="email"
-                margin="dense"
-              />
-            ),
-          }}
-        />
+      <Form form={form} onSubmit={handleSendEmailClick}>
+        <Form.UField name="email">
+          <TextField fullWidth label="Email" type="email" margin="dense" />
+        </Form.UField>
 
         <LoadingButton
           loading={loading}
@@ -76,7 +65,7 @@ export function ForgotPasswordPage() {
         >
           ENVIAR
         </LoadingButton>
-      </CustomForm>
+      </Form>
 
       <Link variant="overline" sx={{ textDecoration: "none" }} href="/login">
         Voltar

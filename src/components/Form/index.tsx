@@ -1,28 +1,20 @@
-import { PropsWithChildren, ReactElement } from "react";
-import {
-  Controller,
-  ControllerFieldState,
-  ControllerRenderProps,
-  FieldValues,
-  FormProvider,
-  UseFormRegisterReturn,
-  UseFormReturn,
-  UseFormStateReturn,
-  useFormContext,
-} from "react-hook-form";
-import { FormHelperText } from "@mui/material";
+import { PropsWithChildren } from "react";
+import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form";
 
-interface CustomFormProps<T extends FieldValues> extends PropsWithChildren {
+import { UField, UFieldProps } from "./UField";
+import { CField, CFieldProps } from "./CField";
+
+interface Props<T extends FieldValues> extends PropsWithChildren {
   form: UseFormReturn<T>;
   onSubmit?: (data: T) => void;
 }
 
-function CustomForm<T extends FieldValues>({
+function Form<T extends FieldValues>({
   form,
   onSubmit,
   children,
   ...props
-}: CustomFormProps<T>) {
+}: Props<T>) {
   return (
     <FormProvider {...form}>
       <form onSubmit={onSubmit && form.handleSubmit(onSubmit)} {...props}>
@@ -32,65 +24,11 @@ function CustomForm<T extends FieldValues>({
   );
 }
 
-CustomForm.defaultProps = {
+Form.defaultProps = {
   onSubmit: undefined,
 };
 
-interface CustomFieldProps {
-  name: string;
-  render: {
-    controlled?: (props: {
-      field: Omit<ControllerRenderProps, "ref"> & { error: boolean };
-      fieldState: ControllerFieldState;
-      formState: UseFormStateReturn<FieldValues>;
-    }) => ReactElement;
-    uncontrolled?: (props: {
-      field: UseFormRegisterReturn & { error: boolean };
-    }) => ReactElement;
-  };
-}
+Form.UField = (props: UFieldProps) => UField(props);
+Form.CField = (props: CFieldProps) => CField(props);
 
-CustomForm.Field = function CustomField({ name, render }: CustomFieldProps) {
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext();
-  const fieldError = errors[name];
-
-  return (
-    <>
-      {render.uncontrolled ? (
-        render.uncontrolled({
-          field: {
-            ...register(name),
-            error: !!fieldError,
-          },
-        })
-      ) : (
-        <Controller
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          render={({ field: { ref, ...field }, ...controlledProps }) =>
-            render.controlled ? (
-              render.controlled({
-                field: { ...field, error: !!fieldError },
-                ...controlledProps,
-              })
-            ) : (
-              <></>
-            )
-          }
-          name={name}
-          control={control}
-        />
-      )}
-      {fieldError && (
-        <FormHelperText error={true}>
-          {fieldError.message?.toString()}
-        </FormHelperText>
-      )}
-    </>
-  );
-};
-
-export { CustomForm };
+export { Form };
