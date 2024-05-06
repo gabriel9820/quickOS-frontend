@@ -30,7 +30,7 @@ const routes: PrivateRoute[] = [
         roles: [Role.Admin, Role.Attendant],
       },
       {
-        path: "/customers/:id",
+        path: "/customers/:externalId",
         element: <CustomersFormPage />,
       },
     ],
@@ -46,7 +46,7 @@ const routes: PrivateRoute[] = [
         roles: [Role.Admin],
       },
       {
-        path: "/employees/:id",
+        path: "/employees/:externalId",
         element: <EmployeesFormPage />,
         roles: [Role.Admin],
       },
@@ -62,7 +62,7 @@ const routes: PrivateRoute[] = [
         roles: [Role.Admin],
       },
       {
-        path: "/services/:id",
+        path: "/services/:externalId",
         element: <ServicesFormPage />,
       },
     ],
