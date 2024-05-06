@@ -15,11 +15,11 @@ const CustomAlert = React.forwardRef<HTMLDivElement, AlertProps>(
   function CustomAlert(props, ref) {
     return (
       <Alert
-        elevation={6}
         ref={ref}
-        variant="filled"
-        {...props}
+        elevation={1}
+        variant="standard"
         sx={{ whiteSpace: "pre-line" }}
+        {...props}
       >
         <AlertTitle>{title[props.severity!]}</AlertTitle>
         {props.children}
