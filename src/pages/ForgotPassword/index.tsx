@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Link, TextField, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
@@ -51,9 +51,13 @@ export function ForgotPasswordPage() {
       </Box>
 
       <Form form={form} onSubmit={handleSendEmailClick}>
-        <Form.UField name="email">
-          <TextField fullWidth label="Email" type="email" margin="dense" />
-        </Form.UField>
+        <Form.TextField
+          name="email"
+          fullWidth
+          label="Email"
+          type="email"
+          margin="dense"
+        />
 
         <LoadingButton
           loading={loading}

@@ -6,10 +6,8 @@ import {
   TabListProps,
   TabPanelProps,
 } from "@mui/lab";
-import { TabProps } from "@mui/material";
+import { TabProps, TextFieldProps } from "@mui/material";
 
-import { UField, UFieldProps } from "./UField";
-import { CField, CFieldProps } from "./CField";
 import {
   FormTab,
   FormTabActions,
@@ -17,6 +15,8 @@ import {
   FormTabList,
   FormTabPanel,
 } from "./Tabs";
+import { FormTextField } from "./TextField";
+import { FormSwitch, FormSwitchProps } from "./Switch";
 
 interface Props<T extends FieldValues> extends PropsWithChildren {
   form: UseFormReturn<T>;
@@ -42,13 +42,13 @@ Form.defaultProps = {
   onSubmit: undefined,
 };
 
-Form.UField = (props: UFieldProps) => UField(props);
-Form.CField = (props: CFieldProps) => CField(props);
-
 Form.TabContext = (props: TabContextProps) => TabContext(props);
 Form.TabList = (props: TabListProps) => FormTabList(props);
 Form.Tab = (props: TabProps) => FormTab(props);
 Form.TabPanel = (props: TabPanelProps) => FormTabPanel(props);
 Form.TabActions = (props: FormTabActionsProps) => FormTabActions(props);
+
+Form.TextField = (props: TextFieldProps) => FormTextField(props);
+Form.Switch = (props: FormSwitchProps) => FormSwitch(props);
 
 export { Form };

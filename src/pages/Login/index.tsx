@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  IconButton,
-  InputAdornment,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { IconButton, InputAdornment, Link, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -56,27 +50,30 @@ export function LoginPage() {
       <Typography variant="h4">LOGIN</Typography>
 
       <Form form={form} onSubmit={handleLoginClick}>
-        <Form.UField name="email">
-          <TextField fullWidth label="Email" type="email" margin="dense" />
-        </Form.UField>
+        <Form.TextField
+          name="email"
+          fullWidth
+          label="Email"
+          type="email"
+          margin="dense"
+        />
 
-        <Form.UField name="password">
-          <TextField
-            fullWidth
-            label="Senha"
-            type={showPassword ? "text" : "password"}
-            margin="dense"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowPasswordClick} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Form.UField>
+        <Form.TextField
+          name="password"
+          fullWidth
+          label="Senha"
+          type={showPassword ? "text" : "password"}
+          margin="dense"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleShowPasswordClick} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
 
         <Link
           variant="overline"

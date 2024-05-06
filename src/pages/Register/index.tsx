@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  IconButton,
-  InputAdornment,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { IconButton, InputAdornment, Link, Typography } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
@@ -55,64 +49,60 @@ export function RegisterPage() {
       <Typography variant="h5">CRIAR CONTA</Typography>
 
       <Form form={form} onSubmit={handleRegisterSubmit}>
-        <Form.UField name="tenantName">
-          <TextField
-            fullWidth
-            label="Nome do Estabelecimento"
-            margin="dense"
-            size="small"
-          />
-        </Form.UField>
+        <Form.TextField
+          name="tenantName"
+          fullWidth
+          label="Nome do Estabelecimento"
+          margin="dense"
+          size="small"
+        />
 
-        <Form.UField name="ownerName">
-          <TextField
-            fullWidth
-            label="Nome do Proprietário"
-            margin="dense"
-            size="small"
-          />
-        </Form.UField>
+        <Form.TextField
+          name="ownerName"
+          fullWidth
+          label="Nome do Proprietário"
+          margin="dense"
+          size="small"
+        />
 
-        <Form.UField name="cellphone">
-          <TextField
-            fullWidth
-            label="Celular"
-            margin="dense"
-            size="small"
-            InputProps={{
-              inputComponent: MaskInput,
-              inputProps: { mask: cellphoneMask },
-            }}
-          />
-        </Form.UField>
+        <Form.TextField
+          name="cellphone"
+          fullWidth
+          label="Celular"
+          margin="dense"
+          size="small"
+          InputProps={{
+            inputComponent: MaskInput,
+            inputProps: { mask: cellphoneMask },
+          }}
+        />
 
-        <Form.UField name="email">
-          <TextField
-            fullWidth
-            label="Email"
-            type="email"
-            margin="dense"
-            size="small"
-          />
-        </Form.UField>
+        <Form.TextField
+          name="email"
+          fullWidth
+          label="Email"
+          type="email"
+          margin="dense"
+          size="small"
+        />
 
-        <Form.UField name="password">
-          <TextField
-            fullWidth
-            label="Senha"
-            type={showPassword ? "text" : "password"}
-            margin="dense"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowPasswordClick} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Form.UField>
+        <Form.TextField
+          name="password"
+          fullWidth
+          label="Senha"
+          type={showPassword ? "text" : "password"}
+          margin="dense"
+          size="small"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleShowPasswordClick} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
 
         <LoadingButton
           loading={loading}
