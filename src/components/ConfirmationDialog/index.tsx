@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-export interface Props {
+interface Props {
   open: boolean;
   text: string;
   keepMounted: boolean;

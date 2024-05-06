@@ -2,7 +2,7 @@ import React, { RefCallback } from "react";
 import { InputBaseComponentProps } from "@mui/material";
 import { IMaskInput } from "react-imask";
 
-interface CustomProps {
+interface Props {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
   mask: string;
@@ -10,7 +10,7 @@ interface CustomProps {
 
 export const MaskInput = React.forwardRef<
   HTMLInputElement,
-  Omit<InputBaseComponentProps, "onChange"> & CustomProps
+  Omit<InputBaseComponentProps, "onChange"> & Props
 >((props, ref) => {
   const { onChange, mask, ...rest } = props;
 
