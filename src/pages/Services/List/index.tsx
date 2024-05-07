@@ -51,8 +51,8 @@ export function ServicesListPage() {
       <ListTitle>Serviços</ListTitle>
 
       <DataTable
-        rows={pagedResult.data}
-        rowCount={pagedResult.totalCount}
+        rows={pagedResult?.data}
+        rowCount={pagedResult?.totalCount}
         columns={columns}
         loading={isLoading}
         onPaginationModelChange={handlePaginationChange}

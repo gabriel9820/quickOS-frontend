@@ -1,3 +1,5 @@
+import qs from "qs";
+
 import { api } from "./api";
 import { PagedResult } from "../models/pagination.model";
 import {
@@ -7,7 +9,7 @@ import {
 } from "../models/service.model";
 
 export async function getAllServicesAsync(params: ServiceQueryParams) {
-  const query = new URLSearchParams(params).toString();
+  const query = qs.stringify(params);
 
   return api.get<PagedResult<ServiceOutputModel[]>>(
     `/service-provided?${query}`
