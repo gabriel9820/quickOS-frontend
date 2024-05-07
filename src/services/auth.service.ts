@@ -1,9 +1,10 @@
 import { api } from "./api";
 import { UserOutputModel } from "../models/user.model";
 import { RegisterInputModel } from "../models/register.model";
+import { AuthOutputModel } from "../models/auth.model";
 
 export async function loginAsync(email: string, password: string) {
-  return api.post<UserOutputModel>("/auth/login", { email, password });
+  return api.post<AuthOutputModel>("/auth/login", { email, password });
 }
 
 export async function forgotPasswordAsync(email: string) {

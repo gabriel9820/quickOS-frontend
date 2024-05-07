@@ -1,12 +1,16 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 
+import { useAppSelector } from "../../store/hooks";
+
 interface Props {
   isMenuOpen: boolean;
   onMenuButtonClick: () => void;
 }
 
 export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
+  const { tenant } = useAppSelector((state) => state.auth);
+
   return (
     <Box
       sx={{
@@ -27,8 +31,8 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
             <Menu />
           </IconButton>
 
-          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-            Nome do Estabelecimento
+          <Typography sx={{ flexGrow: 1, textAlign: "center", fontSize: 18 }}>
+            {tenant?.name || ""}
           </Typography>
         </Toolbar>
       </AppBar>

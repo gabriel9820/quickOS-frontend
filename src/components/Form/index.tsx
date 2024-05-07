@@ -1,28 +1,34 @@
-import { PropsWithChildren, ReactElement } from "react";
+import { PropsWithChildren } from "react";
+import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form";
 import {
-  Controller,
-  ControllerFieldState,
-  ControllerRenderProps,
-  FieldValues,
-  FormProvider,
-  UseFormRegisterReturn,
-  UseFormReturn,
-  UseFormStateReturn,
-  useFormContext,
-} from "react-hook-form";
-import { FormHelperText } from "@mui/material";
+  TabContext,
+  TabContextProps,
+  TabListProps,
+  TabPanelProps,
+} from "@mui/lab";
+import { TabProps, TextFieldProps } from "@mui/material";
 
-interface CustomFormProps<T extends FieldValues> extends PropsWithChildren {
+import {
+  FormTab,
+  FormTabActions,
+  FormTabActionsProps,
+  FormTabList,
+  FormTabPanel,
+} from "./Tabs";
+import { FormTextField } from "./TextField";
+import { FormSwitch, FormSwitchProps } from "./Switch";
+
+interface Props<T extends FieldValues> extends PropsWithChildren {
   form: UseFormReturn<T>;
   onSubmit?: (data: T) => void;
 }
 
-function CustomForm<T extends FieldValues>({
+function Form<T extends FieldValues>({
   form,
   onSubmit,
   children,
   ...props
-}: CustomFormProps<T>) {
+}: Props<T>) {
   return (
     <FormProvider {...form}>
       <form onSubmit={onSubmit && form.handleSubmit(onSubmit)} {...props}>
@@ -32,65 +38,17 @@ function CustomForm<T extends FieldValues>({
   );
 }
 
-CustomForm.defaultProps = {
+Form.defaultProps = {
   onSubmit: undefined,
 };
 
-interface CustomFieldProps {
-  name: string;
-  render: {
-    controlled?: (props: {
-      field: Omit<ControllerRenderProps, "ref"> & { error: boolean };
-      fieldState: ControllerFieldState;
-      formState: UseFormStateReturn<FieldValues>;
-    }) => ReactElement;
-    uncontrolled?: (props: {
-      field: UseFormRegisterReturn & { error: boolean };
-    }) => ReactElement;
-  };
-}
+Form.TabContext = (props: TabContextProps) => TabContext(props);
+Form.TabList = (props: TabListProps) => FormTabList(props);
+Form.Tab = (props: TabProps) => FormTab(props);
+Form.TabPanel = (props: TabPanelProps) => FormTabPanel(props);
+Form.TabActions = (props: FormTabActionsProps) => FormTabActions(props);
 
-CustomForm.Field = function CustomField({ name, render }: CustomFieldProps) {
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext();
-  const fieldError = errors[name];
+Form.TextField = (props: TextFieldProps) => FormTextField(props);
+Form.Switch = (props: FormSwitchProps) => FormSwitch(props);
 
-  return (
-    <>
-      {render.uncontrolled ? (
-        render.uncontrolled({
-          field: {
-            ...register(name),
-            error: !!fieldError,
-          },
-        })
-      ) : (
-        <Controller
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          render={({ field: { ref, ...field }, ...controlledProps }) =>
-            render.controlled ? (
-              render.controlled({
-                field: { ...field, error: !!fieldError },
-                ...controlledProps,
-              })
-            ) : (
-              <></>
-            )
-          }
-          name={name}
-          control={control}
-        />
-      )}
-      {fieldError && (
-        <FormHelperText error={true}>
-          {fieldError.message?.toString()}
-        </FormHelperText>
-      )}
-    </>
-  );
-};
-
-export { CustomForm };
+export { Form };

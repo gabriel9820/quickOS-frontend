@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Link,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { IconButton, InputAdornment, Link, Typography } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
@@ -16,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 
 import { AccountCard } from "../../components/AccountCard";
-import { CustomForm } from "../../components/Form";
+import { Form } from "../../components/Form";
 import { RegisterFormData, registerFormSchema } from "./schemas";
 import { handleError } from "../../utils/error-handler";
 import { useAppDispatch } from "../../store/hooks";
@@ -57,97 +48,58 @@ export function RegisterPage() {
     <AccountCard>
       <Typography variant="h5">CRIAR CONTA</Typography>
 
-      <CustomForm form={form} onSubmit={handleRegisterSubmit}>
-        <CustomForm.Field
+      <Form form={form} onSubmit={handleRegisterSubmit}>
+        <Form.TextField
           name="tenantName"
-          render={{
-            uncontrolled: ({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Nome do Estabelecimento"
-                margin="dense"
-                size="small"
-              />
-            ),
-          }}
+          fullWidth
+          label="Nome do Estabelecimento"
+          margin="dense"
+          size="small"
         />
 
-        <CustomForm.Field
+        <Form.TextField
           name="ownerName"
-          render={{
-            uncontrolled: ({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Nome do Proprietário"
-                margin="dense"
-                size="small"
-              />
-            ),
-          }}
+          fullWidth
+          label="Nome do Proprietário"
+          margin="dense"
+          size="small"
         />
 
-        <CustomForm.Field
+        <Form.TextField
           name="cellphone"
-          render={{
-            uncontrolled: ({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Celular"
-                margin="dense"
-                size="small"
-                InputProps={{
-                  inputComponent: MaskInput,
-                  inputProps: { mask: cellphoneMask },
-                }}
-              />
-            ),
+          fullWidth
+          label="Celular"
+          margin="dense"
+          size="small"
+          InputProps={{
+            inputComponent: MaskInput,
+            inputProps: { mask: cellphoneMask },
           }}
         />
 
-        <CustomForm.Field
+        <Form.TextField
           name="email"
-          render={{
-            uncontrolled: ({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Email"
-                type="email"
-                margin="dense"
-                size="small"
-              />
-            ),
-          }}
+          fullWidth
+          label="Email"
+          type="email"
+          margin="dense"
+          size="small"
         />
 
-        <CustomForm.Field
+        <Form.TextField
           name="password"
-          render={{
-            uncontrolled: ({ field }) => (
-              <FormControl
-                fullWidth
-                margin="dense"
-                size="small"
-                error={field.error}
-              >
-                <InputLabel htmlFor="password">Senha</InputLabel>
-                <OutlinedInput
-                  {...field}
-                  id="password"
-                  label="Senha"
-                  type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleShowPasswordClick} edge="end">
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
+          fullWidth
+          label="Senha"
+          type={showPassword ? "text" : "password"}
+          margin="dense"
+          size="small"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleShowPasswordClick} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
             ),
           }}
         />
@@ -162,7 +114,7 @@ export function RegisterPage() {
         >
           SALVAR
         </LoadingButton>
-      </CustomForm>
+      </Form>
 
       <Link variant="overline" sx={{ textDecoration: "none" }} href="/login">
         Voltar

@@ -2,7 +2,7 @@ import { AppDispatch } from "../store";
 import { addNotification } from "../store/notification/actions";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function handleError(error: any, dispatch: AppDispatch) {
+export function handleError(error: any, dispatch: AppDispatch | any) {
   let message = "Ocorreu um erro inesperado";
 
   if (error?.response?.data?.message) {

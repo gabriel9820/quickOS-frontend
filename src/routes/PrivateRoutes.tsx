@@ -7,6 +7,8 @@ import { CustomersListPage } from "../pages/Customers/List";
 import { CustomersFormPage } from "../pages/Customers/Form";
 import { EmployeesListPage } from "../pages/Employees/List";
 import { EmployeesFormPage } from "../pages/Employees/Form";
+import { ServicesListPage } from "../pages/Services/List";
+import { ServicesFormPage } from "../pages/Services/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
@@ -28,7 +30,7 @@ const routes: PrivateRoute[] = [
         roles: [Role.Admin, Role.Attendant],
       },
       {
-        path: "/customers/:id",
+        path: "/customers/:externalId",
         element: <CustomersFormPage />,
       },
     ],
@@ -44,9 +46,24 @@ const routes: PrivateRoute[] = [
         roles: [Role.Admin],
       },
       {
-        path: "/employees/:id",
+        path: "/employees/:externalId",
         element: <EmployeesFormPage />,
         roles: [Role.Admin],
+      },
+    ],
+  },
+  {
+    path: "/services",
+    children: [
+      { index: true, element: <ServicesListPage /> },
+      {
+        path: "/services/create",
+        element: <ServicesFormPage />,
+        roles: [Role.Admin],
+      },
+      {
+        path: "/services/:externalId",
+        element: <ServicesFormPage />,
       },
     ],
   },

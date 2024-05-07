@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Box, Link, TextField, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { AccountCard } from "../../components/AccountCard";
-import { CustomForm } from "../../components/Form";
+import { Form } from "../../components/Form";
 import { ForgotPasswordFormData, forgotPasswordFormSchema } from "./schemas";
 import { handleError } from "../../utils/error-handler";
 import { useAppDispatch } from "../../store/hooks";
@@ -50,20 +50,13 @@ export function ForgotPasswordPage() {
         </Typography>
       </Box>
 
-      <CustomForm form={form} onSubmit={handleSendEmailClick}>
-        <CustomForm.Field
+      <Form form={form} onSubmit={handleSendEmailClick}>
+        <Form.TextField
           name="email"
-          render={{
-            uncontrolled: ({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Email"
-                type="email"
-                margin="dense"
-              />
-            ),
-          }}
+          fullWidth
+          label="Email"
+          type="email"
+          margin="dense"
         />
 
         <LoadingButton
@@ -76,7 +69,7 @@ export function ForgotPasswordPage() {
         >
           ENVIAR
         </LoadingButton>
-      </CustomForm>
+      </Form>
 
       <Link variant="overline" sx={{ textDecoration: "none" }} href="/login">
         Voltar
