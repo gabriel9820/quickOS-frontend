@@ -1,7 +1,8 @@
-import { PagedResult } from "../../models/paged-result.model";
+import { PagedResult, Pagination } from "../../models/pagination.model";
 import { ServiceOutputModel } from "../../models/service.model";
 
 export interface ServicesReducerProps {
-  services: PagedResult<ServiceOutputModel[]>;
+  pagedResult: PagedResult<ServiceOutputModel[]>;
   isLoading: boolean;
+  pagination: Pagination;
 }

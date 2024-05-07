@@ -34,17 +34,12 @@ export function DataTable({ columns, renderActions, ...props }: Props) {
 
   return (
     <DataGrid
-      getRowId={(row) => row.externalId}
-      initialState={{
-        pagination: {
-          paginationModel: { pageSize: 10, page: 1 },
-        },
-      }}
-      pageSizeOptions={[5, 10, 25, 50, 100]}
       autoHeight
+      getRowId={(row) => row.externalId}
+      pageSizeOptions={[5, 10, 25, 50, 100]}
       localeText={ptBR.components?.MuiDataGrid.defaultProps.localeText}
-      checkboxSelection
       columns={innerColumns}
+      paginationMode="server"
       {...props}
     />
   );

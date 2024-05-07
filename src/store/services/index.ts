@@ -1,13 +1,19 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 
-import { getAllServices } from "./actions";
+import { changePaginationService, getAllServices } from "./actions";
 import { ServicesReducerProps } from "./constants";
-import { emptyPagedResult, PagedResult } from "../../models/paged-result.model";
+import {
+  emptyPagedResult,
+  initialPagination,
+  PagedResult,
+  Pagination,
+} from "../../models/pagination.model";
 import { ServiceOutputModel } from "../../models/service.model";
 
 const INITIAL_STATE = {
-  services: emptyPagedResult,
+  pagedResult: emptyPagedResult,
   isLoading: false,
+  pagination: initialPagination,
 };
 
 export const servicesReducer = createReducer<ServicesReducerProps>(
@@ -17,14 +23,20 @@ export const servicesReducer = createReducer<ServicesReducerProps>(
       .addCase(getAllServices.pending, (state) => ({
         ...state,
         isLoading: true,
-        services: emptyPagedResult,
       }))
       .addCase(
         getAllServices.fulfilled,
         (state, action: PayloadAction<PagedResult<ServiceOutputModel[]>>) => ({
           ...state,
-          services: action.payload,
+          pagedResult: action.payload,
           isLoading: false,
+        })
+      )
+      .addCase(
+        changePaginationService,
+        (state, action: PayloadAction<Pagination>) => ({
+          ...state,
+          pagination: action.payload,
         })
       )
 );
