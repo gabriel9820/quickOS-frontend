@@ -26,7 +26,10 @@ export const servicesReducer = createReducer<ServicesReducerProps>(
       }))
       .addCase(
         getAllServices.fulfilled,
-        (state, action: PayloadAction<PagedResult<ServiceOutputModel[]>>) => ({
+        (
+          state,
+          action: PayloadAction<PagedResult<ServiceOutputModel[]> | undefined>
+        ) => ({
           ...state,
           pagedResult: action.payload,
           isLoading: false,
