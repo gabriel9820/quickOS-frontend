@@ -12,7 +12,7 @@ export interface PagedResult<T> extends Pagination {
 }
 
 export const initialPagination: Pagination = {
-  currentPage: 1,
+  currentPage: 0,
   pageSize: 10,
 };
 
