@@ -23,6 +23,7 @@ export function MainForm() {
         label="Nome"
         margin="dense"
         size="small"
+        autoFocus
       />
 
       <Form.TextField

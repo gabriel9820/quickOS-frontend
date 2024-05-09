@@ -20,6 +20,10 @@ export async function getServiceAsync(externalId: string) {
   return api.get<ServiceOutputModel>(`/service-provided/${externalId}`);
 }
 
+export async function getNextServiceCodeAsync() {
+  return api.get<number>("/service-provided/next-code");
+}
+
 export async function createServiceAsync(data: ServiceInputModel) {
   return api.post<ServiceOutputModel>("/service-provided", data);
 }
