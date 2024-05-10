@@ -1,20 +1,16 @@
 import { Box } from "@mui/material";
 
 import { Form } from "../../../components/Form";
-import { DecimalInput, IntegerInput } from "../../../components/Form/MaskInput";
 
 export function MainForm() {
   return (
     <Box>
-      <Form.TextField
+      <Form.IntegerField
         name="code"
         fullWidth
         label="Código"
         margin="dense"
         size="small"
-        InputProps={{
-          inputComponent: IntegerInput,
-        }}
       />
 
       <Form.TextField
@@ -34,15 +30,12 @@ export function MainForm() {
         size="small"
       />
 
-      <Form.TextField
+      <Form.DecimalField
         name="price"
         fullWidth
         label="Valor"
         margin="dense"
         size="small"
-        InputProps={{
-          inputComponent: DecimalInput,
-        }}
       />
 
       <Form.Switch name="isActive" label="Ativo" />

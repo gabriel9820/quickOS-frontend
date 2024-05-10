@@ -17,6 +17,11 @@ import {
 } from "./Tabs";
 import { FormTextField } from "./TextField";
 import { FormSwitch, FormSwitchProps } from "./Switch";
+import {
+  FormDecimalField,
+  FormIntegerField,
+  NumberFieldProps,
+} from "./NumberField";
 
 interface Props<T extends FieldValues> extends PropsWithChildren {
   form: UseFormReturn<T>;
@@ -50,5 +55,7 @@ Form.TabActions = (props: FormTabActionsProps) => FormTabActions(props);
 
 Form.TextField = (props: TextFieldProps) => FormTextField(props);
 Form.Switch = (props: FormSwitchProps) => FormSwitch(props);
+Form.DecimalField = (props: NumberFieldProps) => FormDecimalField(props);
+Form.IntegerField = (props: NumberFieldProps) => FormIntegerField(props);
 
 export { Form };

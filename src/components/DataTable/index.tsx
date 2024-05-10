@@ -4,7 +4,6 @@ import { DataGridProps } from "@mui/x-data-grid/internals";
 import { ptBR } from "@mui/x-data-grid/locales";
 
 interface Props extends DataGridProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderActions?: (params: GridRenderCellParams<any, any, any>) => ReactNode;
 }
 

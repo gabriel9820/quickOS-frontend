@@ -16,7 +16,6 @@ export const initialPagination: Pagination = {
   pageSize: 10,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const emptyPagedResult: PagedResult<any> = {
   ...initialPagination,
   totalPages: 0,
