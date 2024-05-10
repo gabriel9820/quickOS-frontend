@@ -33,8 +33,8 @@ export function ServicesListPage() {
     navigate(externalId, { state: { readOnly: false } });
   }
 
-  function handleDeleteClick(externalId: string) {
-    dispatch(deleteService(externalId));
+  async function handleDeleteClick(externalId: string) {
+    await dispatch(deleteService(externalId));
   }
 
   function handlePaginationChange(model: GridPaginationModel) {
