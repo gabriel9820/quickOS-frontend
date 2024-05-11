@@ -23,6 +23,9 @@ export const MaskInput = React.forwardRef<
         onChange &&
         onChange({ target: { name: props.name, value: value as string } })
       }
+      onFocus={(e) => {
+        e.target.select();
+      }}
       overwrite
       lazy={false}
     />
