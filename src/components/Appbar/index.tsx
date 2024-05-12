@@ -12,30 +12,41 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
   const { tenant } = useAppSelector((state) => state.auth);
 
   return (
-    <Box
+    <AppBar
+      position="fixed"
       sx={{
-        flexGrow: 1,
         marginLeft: isMenuOpen ? "250px" : 0,
+        width: isMenuOpen ? "calc(100% - 250px)" : "100%",
         transition: "ease 225ms",
+        backdropFilter: "blur(5px)",
+        backgroundColor: "transparent",
+        backgroundImage: "none",
+        boxShadow: "none",
       }}
     >
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            sx={{ mr: 2 }}
-            onClick={onMenuButtonClick}
-          >
-            <Menu />
-          </IconButton>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          sx={{ mr: 2 }}
+          onClick={onMenuButtonClick}
+        >
+          <Menu />
+        </IconButton>
 
-          <Typography sx={{ flexGrow: 1, textAlign: "center", fontSize: 18 }}>
-            {tenant?.name || ""}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontSize: 18,
+            fontWeight: "bold",
+          }}
+        >
+          {tenant?.name || ""}
+        </Typography>
+
+        <Box></Box>
+      </Toolbar>
+    </AppBar>
   );
 }
