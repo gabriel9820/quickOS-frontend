@@ -1,16 +1,11 @@
 import { Provider } from "react-redux";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 
 import { store } from "./store";
+import { theme } from "./theme";
 import { NotificationBar } from "./components/Notification";
 import { AppRoutes } from "./routes";
-
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
 
 function App() {
   return (
