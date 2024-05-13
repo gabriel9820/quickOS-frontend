@@ -5,7 +5,7 @@ import { Delete, Edit, Visibility } from "@mui/icons-material";
 
 import { ConfirmationDialog } from "../ConfirmationDialog";
 
-interface Props {
+export interface DataTableActionsProps {
   onViewClick: () => void;
   onEditClick: () => void;
   onDeleteClick: () => Promise<void>;
@@ -15,7 +15,7 @@ export function DataTableActions({
   onViewClick,
   onEditClick,
   onDeleteClick,
-}: Props) {
+}: DataTableActionsProps) {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 

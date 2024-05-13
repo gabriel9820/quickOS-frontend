@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { GridPaginationModel } from "@mui/x-data-grid";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   changePaginationService,
@@ -12,7 +14,10 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { columns } from "./constants";
 import { DataTable } from "../../../components/DataTable";
 import { ListTitle } from "../../../components/ListTitle";
-import { DataTableActions } from "../../../components/DataTable/Actions";
+import { Filters } from "../../../components/Filters";
+import { Form } from "../../../components/Form";
+import { FiltersForm } from "./FiltersForm";
+import { ServicesFiltersFormData, servicesFiltersFormSchema } from "./schemas";
 
 export function ServicesListPage() {
   const { pagedResult, isLoading, pagination } = useAppSelector(
@@ -20,6 +25,9 @@ export function ServicesListPage() {
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const form = useForm<ServicesFiltersFormData>({
+    resolver: zodResolver(servicesFiltersFormSchema),
+  });
 
   useEffect(() => {
     dispatch(getAllServices());
@@ -46,9 +54,19 @@ export function ServicesListPage() {
     );
   }
 
+  function handleFilterClick(filtersFormData: ServicesFiltersFormData) {
+    console.log("filters", filtersFormData);
+  }
+
   return (
     <Box>
       <ListTitle>Serviços</ListTitle>
+
+      <Form form={form} onSubmit={handleFilterClick}>
+        <Filters>
+          <FiltersForm />
+        </Filters>
+      </Form>
 
       <DataTable
         rows={pagedResult?.data}
@@ -61,12 +79,13 @@ export function ServicesListPage() {
           pageSize: pagination.pageSize,
         }}
         renderActions={({ id }) => (
-          <DataTableActions
+          <DataTable.Actions
             onViewClick={() => handleViewClick(id.toString())}
             onEditClick={() => handleEditClick(id.toString())}
             onDeleteClick={() => handleDeleteClick(id.toString())}
           />
         )}
+        sx={{ marginTop: 3 }}
       />
     </Box>
   );
