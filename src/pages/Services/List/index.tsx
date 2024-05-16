@@ -98,6 +98,7 @@ export function ServicesListPage() {
           page: pagination.currentPage,
           pageSize: pagination.pageSize,
         }}
+        sortModel={[{ field: sorting.orderBy, sort: sorting.orderDirection }]}
         renderActions={({ id }) => (
           <DataTable.Actions
             onViewClick={() => handleViewClick(id.toString())}

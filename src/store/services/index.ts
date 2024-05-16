@@ -6,7 +6,7 @@ import {
   changeSortingService,
   getAllServices,
 } from "./actions";
-import { ServicesReducerProps } from "./constants";
+import { defaultSorting, ServicesReducerProps } from "./constants";
 import {
   emptyPagedResult,
   initialPagination,
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   isLoading: false,
   pagination: initialPagination,
   filters: undefined,
-  sorting: undefined,
+  sorting: defaultSorting,
 };
 
 export const servicesReducer = createReducer<ServicesReducerProps>(
@@ -62,7 +62,7 @@ export const servicesReducer = createReducer<ServicesReducerProps>(
         changeSortingService,
         (state, action: PayloadAction<Sorting | undefined>) => ({
           ...state,
-          sorting: action.payload,
+          sorting: action.payload || defaultSorting,
         })
       )
 );

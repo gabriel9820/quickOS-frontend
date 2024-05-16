@@ -11,5 +11,10 @@ export interface ServicesReducerProps {
   isLoading: boolean;
   pagination: Pagination;
   filters: ServicesFiltersFormData | undefined;
-  sorting: Sorting | undefined;
+  sorting: Sorting;
 }
+
+export const defaultSorting: Sorting = {
+  orderBy: "name",
+  orderDirection: "asc",
+};
