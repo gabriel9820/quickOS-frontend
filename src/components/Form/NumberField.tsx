@@ -20,7 +20,9 @@ export function FormDecimalField({ name = "", ...props }: NumberFieldProps) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       render={({ field: { ref, onChange, ...field } }) => (
         <NumericFormat
+          {...(props as any)}
           {...field}
+          value={field.value || ""}
           decimalScale={2}
           fixedDecimalScale
           customInput={TextField}
@@ -31,7 +33,6 @@ export function FormDecimalField({ name = "", ...props }: NumberFieldProps) {
               target: { name: field.name, value: values.floatValue },
             });
           }}
-          {...(props as any)}
           error={!!fieldError}
           helperText={fieldError?.message?.toString()}
           InputLabelProps={{ shrink: true }}
@@ -55,7 +56,9 @@ export function FormIntegerField({ name = "", ...props }: NumberFieldProps) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       render={({ field: { ref, onChange, ...field } }) => (
         <NumericFormat
+          {...(props as any)}
           {...field}
+          value={field.value || ""}
           decimalScale={0}
           customInput={TextField}
           onValueChange={(values) => {
@@ -63,7 +66,6 @@ export function FormIntegerField({ name = "", ...props }: NumberFieldProps) {
               target: { name: field.name, value: values.floatValue },
             });
           }}
-          {...(props as any)}
           error={!!fieldError}
           helperText={fieldError?.message?.toString()}
           InputLabelProps={{ shrink: true }}
