@@ -8,9 +8,12 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { ExpandMore, Search } from "@mui/icons-material";
 
-interface Props extends PropsWithChildren {}
+interface Props extends PropsWithChildren {
+  loading: boolean;
+  onResetClick: () => void;
+}
 
-export function Filters({ children }: Props) {
+export function Filters({ children, loading, onResetClick }: Props) {
   return (
     <Accordion
       elevation={0}
@@ -34,10 +37,19 @@ export function Filters({ children }: Props) {
       >
         <LoadingButton
           variant="outlined"
+          color="inherit"
+          loading={loading}
+          onClick={onResetClick}
+        >
+          Resetar
+        </LoadingButton>
+
+        <LoadingButton
+          variant="contained"
           color="info"
           startIcon={<Search />}
           type="submit"
-          // loading={loading}
+          loading={loading}
         >
           Filtrar
         </LoadingButton>

@@ -9,15 +9,23 @@ import { handleError } from "../../utils/error-handler";
 import { Pagination } from "../../models/pagination.model";
 import { RootState } from "..";
 import { ServiceQueryParams } from "../../models/service.model";
+import { ServicesFiltersFormData } from "../../pages/Services/List/schemas";
+import { removeEmptyValuesFromObject } from "../../utils";
 
 export const getAllServices = createAsyncThunk(
   "GET_ALL_SERVICES",
   async (_, { dispatch, getState }) => {
     try {
-      const { services } = getState() as RootState;
+      const {
+        services: { pagination, filters },
+      } = getState() as RootState;
+
+      const validFilters = removeEmptyValuesFromObject(filters);
       const params: ServiceQueryParams = {
-        ...services.pagination,
-        currentPage: services.pagination.currentPage + 1,
+        ...validFilters,
+        isActive: validFilters?.isActive?.key,
+        ...pagination,
+        currentPage: pagination.currentPage + 1,
       };
 
       const { data } = await getAllServicesAsync(params);
@@ -50,4 +58,8 @@ export const deleteService = createAsyncThunk(
 
 export const changePaginationService = createAction<Pagination>(
   "CHANGE_PAGINATION_SERVICE"
+);
+
+export const changeFiltersService = createAction<ServicesFiltersFormData>(
+  "CHANGE_FILTERS_SERVICE"
 );

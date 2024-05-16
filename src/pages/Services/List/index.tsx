@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
+  changeFiltersService,
   changePaginationService,
   deleteService,
   getAllServices,
@@ -20,7 +21,7 @@ import { FiltersForm } from "./FiltersForm";
 import { ServicesFiltersFormData, servicesFiltersFormSchema } from "./schemas";
 
 export function ServicesListPage() {
-  const { pagedResult, isLoading, pagination } = useAppSelector(
+  const { pagedResult, isLoading, pagination, filters } = useAppSelector(
     (state) => state.services
   );
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ export function ServicesListPage() {
 
   useEffect(() => {
     dispatch(getAllServices());
-  }, [dispatch, pagination]);
+  }, [dispatch, pagination, filters]);
 
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });
@@ -55,7 +56,12 @@ export function ServicesListPage() {
   }
 
   function handleFilterClick(filtersFormData: ServicesFiltersFormData) {
-    console.log("filters", filtersFormData);
+    dispatch(changeFiltersService(filtersFormData));
+  }
+
+  function handleResetFiltersClick() {
+    form.reset();
+    dispatch(changeFiltersService({}));
   }
 
   return (
@@ -63,7 +69,7 @@ export function ServicesListPage() {
       <ListTitle>Serviços</ListTitle>
 
       <Form form={form} onSubmit={handleFilterClick}>
-        <Filters>
+        <Filters loading={isLoading} onResetClick={handleResetFiltersClick}>
           <FiltersForm />
         </Filters>
       </Form>

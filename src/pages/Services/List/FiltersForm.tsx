@@ -20,11 +20,10 @@ export function FiltersForm() {
 
       <Grid item xs={12} xl={6}>
         <StatusAutocomplete
-          name="status"
+          name="isActive"
           fullWidth
           label="Status"
           size="small"
-          multiple
         />
       </Grid>
     </Grid>

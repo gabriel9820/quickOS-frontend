@@ -14,4 +14,9 @@ export interface ServiceOutputModel extends Service {
   externalId: string;
 }
 
-export interface ServiceQueryParams extends Pagination {}
+export interface ServiceQueryParams extends Pagination {
+  code?: number;
+  name?: string;
+  price?: number;
+  isActive?: boolean;
+}
