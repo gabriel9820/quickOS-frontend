@@ -11,5 +11,11 @@ const options: readonly StatusOption[] = [
 ];
 
 export function StatusAutocomplete(props: BaseAutocompleteProps<StatusOption>) {
-  return <BaseAutocomplete {...props} options={options} />;
+  return (
+    <BaseAutocomplete
+      {...props}
+      options={options}
+      isOptionEqualToValue={(option, value) => option.key === value.key}
+    />
+  );
 }

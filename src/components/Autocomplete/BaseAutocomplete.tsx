@@ -33,11 +33,12 @@ export function BaseAutocomplete<T>({ name, label, ...props }: Props<T>) {
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, disabled } }) => (
+      defaultValue={null}
+      render={({ field: { onChange, ...field } }) => (
         <Autocomplete
           {...props}
+          {...field}
           onChange={(_, data) => onChange(data)}
-          disabled={disabled}
           filterSelectedOptions
           noOptionsText="Sem dados"
           loadingText="Carregando..."

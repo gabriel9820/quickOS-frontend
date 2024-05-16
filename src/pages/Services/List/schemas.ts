@@ -8,12 +8,12 @@ export const servicesFiltersFormSchema = z.object({
     .optional(),
   name: z.string().optional(),
   price: z.number().gt(0, "Valor deve ser maior que zero").optional(),
-  status: z
+  isActive: z
     .object({
       key: z.boolean({ required_error: "Key é obrigatório" }),
       label: z.string({ required_error: "Label é obrigatório" }),
     })
-    .array()
+    .nullable()
     .optional(),
 });
 
