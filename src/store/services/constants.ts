@@ -1,4 +1,8 @@
-import { PagedResult, Pagination } from "../../models/pagination.model";
+import {
+  PagedResult,
+  Pagination,
+  Sorting,
+} from "../../models/pagination.model";
 import { ServiceOutputModel } from "../../models/service.model";
 import { ServicesFiltersFormData } from "../../pages/Services/List/schemas";
 
@@ -7,4 +11,5 @@ export interface ServicesReducerProps {
   isLoading: boolean;
   pagination: Pagination;
   filters: ServicesFiltersFormData | undefined;
+  sorting: Sorting | undefined;
 }

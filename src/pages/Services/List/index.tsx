@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { GridPaginationModel } from "@mui/x-data-grid";
+import { GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   changeFiltersService,
   changePaginationService,
+  changeSortingService,
   deleteService,
   getAllServices,
 } from "../../../store/services/actions";
@@ -21,9 +22,8 @@ import { FiltersForm } from "./FiltersForm";
 import { ServicesFiltersFormData, servicesFiltersFormSchema } from "./schemas";
 
 export function ServicesListPage() {
-  const { pagedResult, isLoading, pagination, filters } = useAppSelector(
-    (state) => state.services
-  );
+  const { pagedResult, isLoading, pagination, filters, sorting } =
+    useAppSelector((state) => state.services);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const form = useForm<ServicesFiltersFormData>({
@@ -32,7 +32,7 @@ export function ServicesListPage() {
 
   useEffect(() => {
     dispatch(getAllServices());
-  }, [dispatch, pagination, filters]);
+  }, [dispatch, pagination, filters, sorting]);
 
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });
@@ -64,6 +64,19 @@ export function ServicesListPage() {
     dispatch(changeFiltersService({}));
   }
 
+  function handleSortingChange(model: GridSortModel) {
+    if (model.length) {
+      dispatch(
+        changeSortingService({
+          orderBy: model[0].field,
+          orderDirection: model[0].sort,
+        })
+      );
+    } else {
+      dispatch(changeSortingService(undefined));
+    }
+  }
+
   return (
     <Box>
       <ListTitle>Serviços</ListTitle>
@@ -80,6 +93,7 @@ export function ServicesListPage() {
         columns={columns}
         loading={isLoading}
         onPaginationModelChange={handlePaginationChange}
+        onSortModelChange={handleSortingChange}
         paginationModel={{
           page: pagination.currentPage,
           pageSize: pagination.pageSize,

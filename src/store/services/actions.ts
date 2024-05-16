@@ -6,7 +6,7 @@ import {
 } from "../../services/service-provided.service";
 import { addNotification } from "../notification/actions";
 import { handleError } from "../../utils/error-handler";
-import { Pagination } from "../../models/pagination.model";
+import { Pagination, Sorting } from "../../models/pagination.model";
 import { RootState } from "..";
 import { ServiceQueryParams } from "../../models/service.model";
 import { ServicesFiltersFormData } from "../../pages/Services/List/schemas";
@@ -17,7 +17,7 @@ export const getAllServices = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     try {
       const {
-        services: { pagination, filters },
+        services: { pagination, filters, sorting },
       } = getState() as RootState;
 
       const validFilters = removeEmptyValuesFromObject(filters);
@@ -26,6 +26,7 @@ export const getAllServices = createAsyncThunk(
         isActive: validFilters?.isActive?.key,
         ...pagination,
         currentPage: pagination.currentPage + 1,
+        ...sorting,
       };
 
       const { data } = await getAllServicesAsync(params);
@@ -62,4 +63,8 @@ export const changePaginationService = createAction<Pagination>(
 
 export const changeFiltersService = createAction<ServicesFiltersFormData>(
   "CHANGE_FILTERS_SERVICE"
+);
+
+export const changeSortingService = createAction<Sorting | undefined>(
+  "CHANGE_SORTING_SERVICE"
 );

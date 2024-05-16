@@ -1,6 +1,13 @@
+import { GridSortDirection } from "@mui/x-data-grid";
+
 export interface Pagination {
   currentPage: number;
   pageSize: number;
+}
+
+export interface Sorting {
+  orderBy: string;
+  orderDirection: GridSortDirection;
 }
 
 export interface PagedResult<T> extends Pagination {

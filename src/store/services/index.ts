@@ -3,6 +3,7 @@ import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   changeFiltersService,
   changePaginationService,
+  changeSortingService,
   getAllServices,
 } from "./actions";
 import { ServicesReducerProps } from "./constants";
@@ -11,6 +12,7 @@ import {
   initialPagination,
   PagedResult,
   Pagination,
+  Sorting,
 } from "../../models/pagination.model";
 import { ServiceOutputModel } from "../../models/service.model";
 import { ServicesFiltersFormData } from "../../pages/Services/List/schemas";
@@ -20,6 +22,7 @@ const INITIAL_STATE = {
   isLoading: false,
   pagination: initialPagination,
   filters: undefined,
+  sorting: undefined,
 };
 
 export const servicesReducer = createReducer<ServicesReducerProps>(
@@ -53,6 +56,13 @@ export const servicesReducer = createReducer<ServicesReducerProps>(
         (state, action: PayloadAction<ServicesFiltersFormData>) => ({
           ...state,
           filters: action.payload,
+        })
+      )
+      .addCase(
+        changeSortingService,
+        (state, action: PayloadAction<Sorting | undefined>) => ({
+          ...state,
+          sorting: action.payload,
         })
       )
 );

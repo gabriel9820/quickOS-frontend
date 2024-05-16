@@ -41,6 +41,7 @@ function DataTable({ columns, renderActions, ...props }: Props) {
       localeText={ptBR.components?.MuiDataGrid.defaultProps.localeText}
       columns={innerColumns}
       paginationMode="server"
+      sortingMode="server"
       {...props}
     />
   );
