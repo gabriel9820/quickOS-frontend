@@ -1,7 +1,19 @@
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { MouseEvent, useState } from "react";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { logoutUser } from "../../store/auth/actions";
+import { Role } from "../../enums/role.enum";
 
 interface Props {
   isMenuOpen: boolean;
@@ -9,7 +21,21 @@ interface Props {
 }
 
 export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
-  const { tenant } = useAppSelector((state) => state.auth);
+  const { tenant, user } = useAppSelector((state) => state.auth);
+  const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
+  const dispatch = useAppDispatch();
+
+  function handleOpenUserMenu(event: MouseEvent<HTMLElement>) {
+    setAnchorElUser(event.currentTarget);
+  }
+
+  function handleCloseUserMenu() {
+    setAnchorElUser(null);
+  }
+
+  function handleLogoutClick() {
+    dispatch(logoutUser());
+  }
 
   return (
     <AppBar
@@ -32,7 +58,7 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
           sx={{ mr: 2 }}
           onClick={onMenuButtonClick}
         >
-          <Menu />
+          <MenuIcon />
         </IconButton>
 
         <Typography
@@ -45,7 +71,44 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
           {tenant?.name || ""}
         </Typography>
 
-        <Box></Box>
+        <Box>
+          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Avatar />
+          </IconButton>
+
+          <Menu
+            id="user-menu"
+            anchorEl={anchorElUser}
+            keepMounted
+            disableScrollLock
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+            sx={{ mt: "45px" }}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            {user?.role === Role.Admin && (
+              <MenuItem disabled>
+                <Typography textAlign="center">Meu Estabelecimento</Typography>
+              </MenuItem>
+            )}
+            <MenuItem disabled>
+              <Typography textAlign="center">Minha Conta</Typography>
+            </MenuItem>
+            <MenuItem disabled>
+              <Typography textAlign="center">Alterar Senha</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleLogoutClick}>
+              <Typography textAlign="center">Sair</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   );
