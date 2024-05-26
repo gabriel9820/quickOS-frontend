@@ -73,7 +73,9 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
 
         <Box>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar />
+            <Avatar
+              sx={{ width: 36, height: 36, backgroundColor: "text.primary" }}
+            />
           </IconButton>
 
           <Menu
