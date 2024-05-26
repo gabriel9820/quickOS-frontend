@@ -14,6 +14,7 @@ export function FormTextField({ name = "", ...props }: TextFieldProps) {
       {...register(name)}
       error={!!fieldError}
       helperText={fieldError?.message?.toString()}
+      InputLabelProps={{ shrink: true }}
     />
   );
 }

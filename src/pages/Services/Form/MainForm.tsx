@@ -1,43 +1,43 @@
-import { Box } from "@mui/material";
+import { Grid, TextareaAutosize } from "@mui/material";
 
 import { Form } from "../../../components/Form";
 
 export function MainForm() {
   return (
-    <Box>
-      <Form.TextField
-        name="code"
-        fullWidth
-        label="Código"
-        margin="dense"
-        size="small"
-      />
+    <Grid container spacing={2}>
+      <Grid item xs={12} xl={6}>
+        <Form.IntegerField name="code" fullWidth label="Código" size="small" />
+      </Grid>
 
-      <Form.TextField
-        name="name"
-        fullWidth
-        label="Nome"
-        margin="dense"
-        size="small"
-      />
+      <Grid item xs={12} xl={6}>
+        <Form.Switch name="isActive" label="Ativo" />
+      </Grid>
 
-      <Form.TextField
-        name="description"
-        fullWidth
-        label="Descrição"
-        margin="dense"
-        size="small"
-      />
+      <Grid item xs={12} xl={6}>
+        <Form.TextField
+          name="name"
+          fullWidth
+          label="Nome"
+          size="small"
+          autoFocus
+        />
+      </Grid>
 
-      <Form.TextField
-        name="price"
-        fullWidth
-        label="Valor"
-        margin="dense"
-        size="small"
-      />
+      <Grid item xs={12} xl={6}>
+        <Form.DecimalField name="price" fullWidth label="Valor" size="small" />
+      </Grid>
 
-      <Form.Switch name="isActive" label="Ativo" />
-    </Box>
+      <Grid item xs={12}>
+        <Form.TextField
+          name="description"
+          fullWidth
+          label="Descrição"
+          size="small"
+          InputProps={{
+            inputComponent: TextareaAutosize,
+          }}
+        />
+      </Grid>
+    </Grid>
   );
 }

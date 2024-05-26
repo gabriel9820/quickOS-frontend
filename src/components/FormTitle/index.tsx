@@ -1,8 +1,19 @@
 import { PropsWithChildren } from "react";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export function FormTitle({ children }: PropsWithChildren) {
   return (
-    <Typography sx={{ fontSize: 28, marginBottom: 2 }}>{children}</Typography>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 3,
+      }}
+    >
+      <Typography sx={{ fontSize: 26, fontWeight: "bold" }}>
+        {children}
+      </Typography>
+    </Box>
   );
 }

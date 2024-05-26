@@ -3,8 +3,9 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DataGridProps } from "@mui/x-data-grid/internals";
 import { ptBR } from "@mui/x-data-grid/locales";
 
+import { DataTableActions, DataTableActionsProps } from "./Actions";
+
 interface Props extends DataGridProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderActions?: (params: GridRenderCellParams<any, any, any>) => ReactNode;
 }
 
@@ -21,7 +22,7 @@ const actionsColumnProps: GridColDef = {
   filterable: false,
 };
 
-export function DataTable({ columns, renderActions, ...props }: Props) {
+function DataTable({ columns, renderActions, ...props }: Props) {
   const innerColumns = renderActions
     ? [
         ...columns,
@@ -40,7 +41,12 @@ export function DataTable({ columns, renderActions, ...props }: Props) {
       localeText={ptBR.components?.MuiDataGrid.defaultProps.localeText}
       columns={innerColumns}
       paginationMode="server"
+      sortingMode="server"
       {...props}
     />
   );
 }
+
+DataTable.Actions = (props: DataTableActionsProps) => DataTableActions(props);
+
+export { DataTable };

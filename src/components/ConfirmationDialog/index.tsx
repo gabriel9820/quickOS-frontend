@@ -1,3 +1,4 @@
+import { LoadingButton } from "@mui/lab";
 import {
   Button,
   Dialog,
@@ -8,12 +9,18 @@ import {
 
 interface Props {
   open: boolean;
-  text: string;
   keepMounted: boolean;
+  text: string;
+  loading?: boolean;
   onClose: (option: boolean) => void;
 }
 
-export function ConfirmationDialog({ open, text, onClose, ...props }: Props) {
+export function ConfirmationDialog({
+  text,
+  loading,
+  onClose,
+  ...props
+}: Props) {
   function handleCancel() {
     onClose(false);
   }
@@ -23,7 +30,7 @@ export function ConfirmationDialog({ open, text, onClose, ...props }: Props) {
   }
 
   return (
-    <Dialog open={open} {...props}>
+    <Dialog {...props}>
       <DialogTitle>Confirmação</DialogTitle>
 
       <DialogContent dividers>{text}</DialogContent>
@@ -38,9 +45,14 @@ export function ConfirmationDialog({ open, text, onClose, ...props }: Props) {
           Não
         </Button>
 
-        <Button variant="contained" color="primary" onClick={handleOk}>
+        <LoadingButton
+          loading={loading}
+          variant="contained"
+          color="primary"
+          onClick={handleOk}
+        >
           Sim
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

@@ -9,6 +9,7 @@ import { MainForm } from "./MainForm";
 import { ServicesMainFormData, servicesMainFormSchema } from "./schemas";
 import {
   createServiceAsync,
+  getNextServiceCodeAsync,
   getServiceAsync,
   updateServiceAsync,
 } from "../../../services/service-provided.service";
@@ -55,11 +56,23 @@ export function ServicesFormPage() {
     [form, dispatch]
   );
 
+  const setInitialData = useCallback(async () => {
+    try {
+      const { data: nextCode } = await getNextServiceCodeAsync();
+
+      form.setValue("code", nextCode);
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  }, [form, dispatch]);
+
   useEffect(() => {
     if (externalId) {
       setFormData(externalId);
+    } else {
+      setInitialData();
     }
-  }, [externalId, setFormData]);
+  }, [externalId, setFormData, setInitialData]);
 
   function handleTabChange(_: SyntheticEvent, newIndex: string) {
     setCurrentTabIndex(newIndex);

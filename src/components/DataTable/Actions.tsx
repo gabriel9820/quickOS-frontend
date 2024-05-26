@@ -5,29 +5,32 @@ import { Delete, Edit, Visibility } from "@mui/icons-material";
 
 import { ConfirmationDialog } from "../ConfirmationDialog";
 
-interface Props {
+export interface DataTableActionsProps {
   onViewClick: () => void;
   onEditClick: () => void;
-  onDeleteClick: () => void;
+  onDeleteClick: () => Promise<void>;
 }
 
 export function DataTableActions({
   onViewClick,
   onEditClick,
   onDeleteClick,
-}: Props) {
+}: DataTableActionsProps) {
   const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function handleDeleteClick() {
     setOpenDialog(true);
   }
 
-  function handleCloseDialog(option: boolean) {
-    setOpenDialog(false);
-
-    if (option) {
-      onDeleteClick();
+  async function handleCloseDialog(confirmed: boolean) {
+    if (confirmed) {
+      setLoading(true);
+      await onDeleteClick();
+      setLoading(false);
     }
+
+    setOpenDialog(false);
   }
 
   return (
@@ -52,8 +55,9 @@ export function DataTableActions({
       />
       <ConfirmationDialog
         open={openDialog}
-        text="Tem certeza que deseja excluir este registro?"
         keepMounted
+        text="Tem certeza que deseja excluir este registro?"
+        loading={loading}
         onClose={handleCloseDialog}
       />
     </Box>

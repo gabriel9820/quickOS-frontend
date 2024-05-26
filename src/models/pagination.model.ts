@@ -1,6 +1,13 @@
+import { GridSortDirection } from "@mui/x-data-grid";
+
 export interface Pagination {
   currentPage: number;
   pageSize: number;
+}
+
+export interface Sorting {
+  orderBy: string;
+  orderDirection: GridSortDirection;
 }
 
 export interface PagedResult<T> extends Pagination {
@@ -16,7 +23,6 @@ export const initialPagination: Pagination = {
   pageSize: 10,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const emptyPagedResult: PagedResult<any> = {
   ...initialPagination,
   totalPages: 0,

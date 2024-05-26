@@ -3,7 +3,7 @@ import { InputBaseComponentProps } from "@mui/material";
 import { IMaskInput } from "react-imask";
 
 interface Props {
-  onChange: (event: { target: { name: string; value: string } }) => void;
+  onChange?: (event: { target: { name: string; value: string } }) => void;
   name: string;
   mask: string;
 }
@@ -20,8 +20,12 @@ export const MaskInput = React.forwardRef<
       mask={mask}
       inputRef={ref as RefCallback<HTMLTextAreaElement | HTMLInputElement>}
       onAccept={(value) =>
+        onChange &&
         onChange({ target: { name: props.name, value: value as string } })
       }
+      onFocus={(e) => {
+        e.target.select();
+      }}
       overwrite
       lazy={false}
     />
