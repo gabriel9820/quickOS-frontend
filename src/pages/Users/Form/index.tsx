@@ -4,7 +4,7 @@ type Params = {
   id: string;
 };
 
-export function EmployeesFormPage() {
+export function UsersFormPage() {
   const { id } = useParams<Params>();
   const location = useLocation();
 
@@ -12,7 +12,7 @@ export function EmployeesFormPage() {
 
   return (
     <div>
-      Formulário de Funcionário {id} {readOnly.toString()}
+      Formulário de Usuário {id} {readOnly.toString()}
     </div>
   );
 }

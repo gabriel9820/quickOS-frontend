@@ -1,27 +1,24 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
-import {
-  deleteServiceAsync,
-  getAllServicesAsync,
-} from "../../services/service-provided.service";
+import { deleteUserAsync, getAllUsersAsync } from "../../services/user.service";
 import { addNotification } from "../notification/actions";
 import { handleError } from "../../utils/error-handler";
 import { Pagination, Sorting } from "../../models/pagination.model";
 import { RootState } from "..";
-import { ServiceQueryParams } from "../../models/service.model";
-import { ServicesFiltersFormData } from "../../pages/Services/List/schemas";
+import { UserQueryParams } from "../../models/user.model";
+import { UsersFiltersFormData } from "../../pages/Users/List/schemas";
 import { removeEmptyValuesFromObject } from "../../utils";
 
-export const getAllServices = createAsyncThunk(
-  "GET_ALL_SERVICES",
+export const getAllUsers = createAsyncThunk(
+  "GET_ALL_USERS",
   async (_, { dispatch, getState }) => {
     try {
       const {
-        services: { pagination, filters, sorting },
+        users: { pagination, filters, sorting },
       } = getState() as RootState;
 
       const validFilters = removeEmptyValuesFromObject(filters);
-      const params: ServiceQueryParams = {
+      const params: UserQueryParams = {
         ...validFilters,
         isActive: validFilters?.isActive?.key,
         ...pagination,
@@ -29,7 +26,7 @@ export const getAllServices = createAsyncThunk(
         ...sorting,
       };
 
-      const { data } = await getAllServicesAsync(params);
+      const { data } = await getAllUsersAsync(params);
       return data;
     } catch (error) {
       handleError(error, dispatch);
@@ -37,11 +34,11 @@ export const getAllServices = createAsyncThunk(
   }
 );
 
-export const deleteService = createAsyncThunk(
-  "DELETE_SERVICE",
+export const deleteUser = createAsyncThunk(
+  "DELETE_USER",
   async (externalId: string, { dispatch }) => {
     try {
-      await deleteServiceAsync(externalId);
+      await deleteUserAsync(externalId);
 
       dispatch(
         addNotification({
@@ -50,21 +47,21 @@ export const deleteService = createAsyncThunk(
         })
       );
 
-      dispatch(getAllServices());
+      dispatch(getAllUsers());
     } catch (error) {
       handleError(error, dispatch);
     }
   }
 );
 
-export const changePaginationService = createAction<Pagination>(
-  "CHANGE_PAGINATION_SERVICE"
+export const changePaginationUser = createAction<Pagination>(
+  "CHANGE_PAGINATION_USER"
 );
 
-export const changeFiltersService = createAction<ServicesFiltersFormData>(
-  "CHANGE_FILTERS_SERVICE"
+export const changeFiltersUser = createAction<UsersFiltersFormData>(
+  "CHANGE_FILTERS_USER"
 );
 
-export const changeSortingService = createAction<Sorting | undefined>(
-  "CHANGE_SORTING_SERVICE"
+export const changeSortingUser = createAction<Sorting | undefined>(
+  "CHANGE_SORTING_USER"
 );
