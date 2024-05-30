@@ -21,8 +21,12 @@ export function Filters({ children, loading, onResetClick }: Props) {
         borderRadius: 2,
         "&::before": { backgroundColor: "transparent" },
       }}
+      disableGutters
     >
-      <AccordionSummary sx={{ fontWeight: "500" }} expandIcon={<ExpandMore />}>
+      <AccordionSummary
+        sx={{ fontWeight: "500", paddingY: 0.5 }}
+        expandIcon={<ExpandMore />}
+      >
         Filtros
       </AccordionSummary>
 
@@ -33,7 +37,7 @@ export function Filters({ children, loading, onResetClick }: Props) {
       </AccordionDetails>
 
       <AccordionActions
-        sx={{ padding: 2, borderTop: 1, borderColor: "divider" }}
+        sx={{ padding: 2, paddingY: 1.5, borderTop: 1, borderColor: "divider" }}
       >
         <LoadingButton
           variant="outlined"
@@ -46,7 +50,7 @@ export function Filters({ children, loading, onResetClick }: Props) {
 
         <LoadingButton
           variant="contained"
-          color="info"
+          color="primary"
           startIcon={<Search />}
           type="submit"
           loading={loading}

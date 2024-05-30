@@ -47,7 +47,7 @@ export function FormTabActions({ readOnly, loading }: FormTabActionsProps) {
         paddingTop: 3,
       }}
     >
-      <Button variant="outlined" color="secondary" onClick={handleCancelClick}>
+      <Button variant="outlined" color="inherit" onClick={handleCancelClick}>
         {readOnly ? "Voltar" : "Cancelar"}
       </Button>
 
