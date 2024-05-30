@@ -7,14 +7,20 @@ export function FormTextField({ name = "", ...props }: TextFieldProps) {
     formState: { errors, disabled },
   } = useFormContext();
   const fieldError = errors[name];
+  const disabledInput = disabled || props.disabled;
 
   return (
     <TextField
       {...props}
-      {...register(name, { disabled: props.disabled || disabled })}
+      {...register(name)}
       error={!!fieldError}
       helperText={fieldError?.message?.toString()}
-      InputLabelProps={{ shrink: true }}
+      InputLabelProps={{ ...props.InputLabelProps, shrink: true }}
+      InputProps={{
+        ...props.InputProps,
+        readOnly: disabledInput,
+        disabled: disabledInput,
+      }}
     />
   );
 }
