@@ -89,7 +89,7 @@ export function ServicesFormPage() {
       dispatch(
         addNotification({
           type: "success",
-          message: "Salvo",
+          message: "Registro salvo",
         })
       );
       navigate(-1);
