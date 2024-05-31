@@ -19,6 +19,7 @@ import {
   deleteUser,
   getAllUsers,
 } from "../../../store/users/actions";
+import { UserRole } from "../../../enums/user-role.enum";
 
 export function UsersListPage() {
   const { pagedResult, isLoading, pagination, filters, sorting } =
@@ -78,7 +79,7 @@ export function UsersListPage() {
 
   return (
     <Box>
-      <ListTitle>Usuários</ListTitle>
+      <ListTitle createPermission={[UserRole.Admin]}>Usuários</ListTitle>
 
       <Form form={form} onSubmit={handleFilterClick}>
         <Filters loading={isLoading} onResetClick={handleResetFiltersClick}>
@@ -100,8 +101,11 @@ export function UsersListPage() {
         sortModel={[{ field: sorting.orderBy, sort: sorting.orderDirection }]}
         renderActions={({ id }) => (
           <DataTable.Actions
+            viewPermission={[UserRole.Admin]}
             onViewClick={() => handleViewClick(id.toString())}
+            editPermission={[UserRole.Admin]}
             onEditClick={() => handleEditClick(id.toString())}
+            deletePermission={[UserRole.Admin]}
             onDeleteClick={() => handleDeleteClick(id.toString())}
           />
         )}
