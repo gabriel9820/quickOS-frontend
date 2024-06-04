@@ -33,7 +33,7 @@ export function BaseAutocomplete<T>({ name, label, ...props }: Props<T>) {
     <Controller
       name={name}
       control={control}
-      defaultValue={null}
+      defaultValue={props.multiple ? [] : null}
       render={({ field: { onChange, ...field } }) => (
         <Autocomplete
           {...props}

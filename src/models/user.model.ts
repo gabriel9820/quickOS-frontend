@@ -19,8 +19,7 @@ export interface UserOutputModel extends User {
 
 export interface UserQueryParams extends Pagination {
   fullName?: string;
-  cellphone?: string;
   email?: string;
-  role?: UserRole;
+  roles?: UserRole[];
   isActive?: boolean;
 }

@@ -21,6 +21,7 @@ export const getAllUsers = createAsyncThunk(
       const params: UserQueryParams = {
         ...validFilters,
         isActive: validFilters?.isActive?.key,
+        roles: validFilters?.roles?.map((o) => o.key),
         ...pagination,
         currentPage: pagination.currentPage + 1,
         ...sorting,

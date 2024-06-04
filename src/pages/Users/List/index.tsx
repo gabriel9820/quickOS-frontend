@@ -20,6 +20,7 @@ import {
   getAllUsers,
 } from "../../../store/users/actions";
 import { UserRole } from "../../../enums/user-role.enum";
+import { FiltersForm } from "./FiltersForm";
 
 export function UsersListPage() {
   const { pagedResult, isLoading, pagination, filters, sorting } =
@@ -83,7 +84,7 @@ export function UsersListPage() {
 
       <Form form={form} onSubmit={handleFilterClick}>
         <Filters loading={isLoading} onResetClick={handleResetFiltersClick}>
-          {/* <FiltersForm /> */}
+          <FiltersForm />
         </Filters>
       </Form>
 
