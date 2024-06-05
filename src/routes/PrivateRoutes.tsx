@@ -5,10 +5,12 @@ import { PrivateLayout } from "../layout/PrivateLayout";
 import { DashboardPage } from "../pages/Dashboard";
 import { CustomersListPage } from "../pages/Customers/List";
 import { CustomersFormPage } from "../pages/Customers/Form";
-import { UsersListPage } from "../pages/Users/List";
-import { UsersFormPage } from "../pages/Users/Form";
+import { ProductsListPage } from "../pages/Products/List";
+import { ProductsFormPage } from "../pages/Products/Form";
 import { ServicesListPage } from "../pages/Services/List";
 import { ServicesFormPage } from "../pages/Services/Form";
+import { UsersListPage } from "../pages/Users/List";
+import { UsersFormPage } from "../pages/Users/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
@@ -32,6 +34,21 @@ const routes: PrivateRoute[] = [
       {
         path: "/customers/:externalId",
         element: <CustomersFormPage />,
+      },
+    ],
+  },
+  {
+    path: "/products",
+    children: [
+      { index: true, element: <ProductsListPage /> },
+      {
+        path: "/products/create",
+        element: <ProductsFormPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/products/:externalId",
+        element: <ProductsFormPage />,
       },
     ],
   },
