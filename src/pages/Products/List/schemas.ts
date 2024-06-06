@@ -7,8 +7,8 @@ export const productsFiltersFormSchema = z.object({
     .gt(0, "Código deve ser maior que zero")
     .optional(),
   name: z.string().optional(),
-  sellingPrice: z.number().gt(0, "Valor deve ser maior que zero").optional(),
-  stock: z.number().gt(0, "Valor deve ser maior que zero").optional(),
+  sellingPrice: z.number().optional(),
+  stock: z.number().optional(),
   unitsOfMeasurement: z
     .array(
       z.object({

@@ -9,9 +9,7 @@ export function MainForm() {
         <Form.IntegerField name="code" fullWidth label="Código" size="small" />
       </Grid>
 
-      <Grid item xs={12} xl={6}>
-        <Form.Switch name="isActive" label="Ativo" />
-      </Grid>
+      <Grid xl={6} sx={{ xs: { display: "none" } }}></Grid>
 
       <Grid item xs={12} xl={6}>
         <Form.TextField
@@ -27,7 +25,7 @@ export function MainForm() {
         <Form.DecimalField name="price" fullWidth label="Valor" size="small" />
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid item xs={12} xl={6}>
         <Form.TextField
           name="description"
           fullWidth
@@ -37,6 +35,10 @@ export function MainForm() {
             inputComponent: TextareaAutosize,
           }}
         />
+      </Grid>
+
+      <Grid item xs={12} xl={6}>
+        <Form.Switch name="isActive" label="Ativo" />
       </Grid>
     </Grid>
   );
