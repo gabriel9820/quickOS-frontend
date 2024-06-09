@@ -7,3 +7,7 @@ export const cellphoneRegex = new RegExp(
 );
 
 export const cellphoneMask = "(00) {9}0000-0000";
+
+export const cpfMask = "000.000.000-00";
+
+export const cnpjMask = "00.000.000/0000-00";

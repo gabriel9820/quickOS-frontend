@@ -6,17 +6,21 @@ interface CustomerTypeOption {
   label: string;
 }
 
-const options: readonly CustomerTypeOption[] = [
+const customerTypeOptions: readonly CustomerTypeOption[] = [
   { key: CustomerType.Individual, label: "Física" },
   { key: CustomerType.Company, label: "Jurídica" },
 ];
 
-export function CustomerTypeAutocomplete(props: BaseAutocompleteProps<CustomerTypeOption>) {
+function CustomerTypeAutocomplete(
+  props: BaseAutocompleteProps<CustomerTypeOption>
+) {
   return (
     <BaseAutocomplete
       {...props}
-      options={options}
+      options={customerTypeOptions}
       isOptionEqualToValue={(option, value) => option.key === value.key}
     />
   );
 }
+
+export { CustomerTypeAutocomplete, customerTypeOptions };
