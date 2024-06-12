@@ -1,6 +1,16 @@
 import z from "zod";
 
-import { cellphoneRegex } from "../../../utils/masks";
+import { cellphoneRegex, documentRegex } from "../../../utils/masks";
+
+const customersAddressFormSchema = z.object({
+  zipCode: z.string().optional().nullable(),
+  street: z.string().optional().nullable(),
+  number: z.string().optional().nullable(),
+  details: z.string().optional().nullable(),
+  neighborhood: z.string().optional().nullable(),
+  city: z.string().optional().nullable(),
+  state: z.string().optional().nullable(),
+});
 
 export const customersMainFormSchema = z.object({
   code: z
@@ -14,7 +24,10 @@ export const customersMainFormSchema = z.object({
     },
     { invalid_type_error: "Tipo de Pessoa é obrigatório" }
   ),
-  document: z.string().min(1, "Documento é obrigatório"),
+  document: z
+    .string()
+    .min(1, "Documento é obrigatório")
+    .regex(documentRegex, "Documento está em um formato inválido"),
   fullName: z.string().min(1, "Nome é obrigatório"),
   cellphone: z
     .string()
@@ -22,6 +35,7 @@ export const customersMainFormSchema = z.object({
     .regex(cellphoneRegex, "Celular é inválido"),
   email: z.string().min(1, "Email é obrigatório").email("Email inválido"),
   isActive: z.coerce.boolean({ required_error: "Status é obrigatório" }),
+  address: customersAddressFormSchema,
 });
 
 export type CustomersMainFormData = z.infer<typeof customersMainFormSchema>;

@@ -1,24 +1,19 @@
 import { Grid, TextareaAutosize } from "@mui/material";
-import { UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { Form } from "../../../components/Form";
 import { UnitOfMeasurementAutocomplete } from "../../../components/Autocomplete/UnitOfMeasurementAutocomplete";
 import { ProductsMainFormData } from "./schemas";
 
-interface Props {
-  form: UseFormReturn<ProductsMainFormData>;
-}
+export function MainForm() {
+  const { getValues, setValue } = useFormContext<ProductsMainFormData>();
 
-export function MainForm({ form }: Props) {
   function calculateSellingPrice() {
-    const [costPrice, profitMargin] = form.getValues([
-      "costPrice",
-      "profitMargin",
-    ]);
+    const [costPrice, profitMargin] = getValues(["costPrice", "profitMargin"]);
 
     if (costPrice && costPrice > 0 && profitMargin && profitMargin > 0) {
       const sellingPrice = costPrice + costPrice * (profitMargin / 100);
-      form.setValue("sellingPrice", sellingPrice);
+      setValue("sellingPrice", sellingPrice);
     }
   }
 

@@ -19,6 +19,7 @@ import { addNotification } from "../../../store/notification/actions";
 import { handleError } from "../../../utils/error-handler";
 import { CustomerInputModel } from "../../../models/customer.model";
 import { customerTypeOptions } from "../../../components/Autocomplete/CustomerTypeAutocomplete";
+import { AddressForm } from "./AddressForm";
 
 type Params = {
   externalId: string;
@@ -56,6 +57,15 @@ export function CustomersFormPage() {
         form.setValue("cellphone", data.cellphone);
         form.setValue("email", data.email);
         form.setValue("isActive", data.isActive);
+        form.setValue("address", {
+          zipCode: data.address?.zipCode,
+          street: data.address?.street,
+          number: data.address?.number,
+          details: data.address?.details,
+          neighborhood: data.address?.neighborhood,
+          city: data.address?.city,
+          state: data.address?.state,
+        });
       } catch (error) {
         handleError(error, dispatch);
       }
@@ -119,10 +129,15 @@ export function CustomersFormPage() {
         <Form.TabContext value={currentTabIndex}>
           <Form.TabList onChange={handleTabChange}>
             <Form.Tab label="Principal" value="1" />
+            <Form.Tab label="Endereço" value="2" />
           </Form.TabList>
 
           <Form.TabPanel value="1">
             <MainForm />
+          </Form.TabPanel>
+
+          <Form.TabPanel value="2">
+            <AddressForm />
           </Form.TabPanel>
 
           <Form.TabActions readOnly={readOnly} loading={loading} />

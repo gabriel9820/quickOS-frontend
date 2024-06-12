@@ -123,7 +123,7 @@ export function ProductsFormPage() {
           </Form.TabList>
 
           <Form.TabPanel value="1">
-            <MainForm form={form} />
+            <MainForm />
           </Form.TabPanel>
 
           <Form.TabActions readOnly={readOnly} loading={loading} />
