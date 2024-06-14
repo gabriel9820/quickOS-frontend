@@ -38,6 +38,7 @@ export function AddressForm() {
             inputComponent: MaskInput,
             inputProps: { mask: cepMask, onBlur: onZipCodeBlur },
           }}
+          autoFocus
         />
       </Grid>
 
