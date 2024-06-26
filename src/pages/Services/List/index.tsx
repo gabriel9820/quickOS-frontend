@@ -20,6 +20,7 @@ import { Filters } from "../../../components/Filters";
 import { Form } from "../../../components/Form";
 import { FiltersForm } from "./FiltersForm";
 import { ServicesFiltersFormData, servicesFiltersFormSchema } from "./schemas";
+import { UserRole } from "../../../enums/user-role.enum";
 
 export function ServicesListPage() {
   const { pagedResult, isLoading, pagination, filters, sorting } =
@@ -79,7 +80,7 @@ export function ServicesListPage() {
 
   return (
     <Box>
-      <ListTitle>Serviços</ListTitle>
+      <ListTitle createPermission={[UserRole.Admin]}>Serviços</ListTitle>
 
       <Form form={form} onSubmit={handleFilterClick}>
         <Filters loading={isLoading} onResetClick={handleResetFiltersClick}>
@@ -102,7 +103,9 @@ export function ServicesListPage() {
         renderActions={({ id }) => (
           <DataTable.Actions
             onViewClick={() => handleViewClick(id.toString())}
+            editPermission={[UserRole.Admin]}
             onEditClick={() => handleEditClick(id.toString())}
+            deletePermission={[UserRole.Admin]}
             onDeleteClick={() => handleDeleteClick(id.toString())}
           />
         )}

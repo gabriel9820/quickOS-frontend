@@ -7,6 +7,7 @@ import { CustomAppBar } from "../components/Appbar";
 
 export function PrivateLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const margin = { sm: "10px", lg: "100px", xl: "200px" };
 
   function toggleMenu() {
     setIsMenuOpen((open) => !open);
@@ -21,10 +22,16 @@ export function PrivateLayout() {
       <Box
         sx={{
           transition: "ease 225ms",
-          marginY: 5,
-          marginX: { sm: 5, xl: 25 },
-          marginLeft: isMenuOpen ? { sm: 36, xl: 56 } : { sm: 5, xl: 25 },
-          padding: 5,
+          marginY: "60px",
+          marginX: { sm: margin["sm"], lg: margin["lg"], xl: margin["xl"] },
+          marginLeft: isMenuOpen
+            ? {
+                sm: `calc(300px + ${margin["sm"]})`,
+                lg: `calc(300px + ${margin["lg"]})`,
+                xl: `calc(300px + ${margin["xl"]})`,
+              }
+            : { sm: margin["sm"], lg: margin["lg"], xl: margin["xl"] },
+          padding: "20px",
         }}
       >
         <Outlet />

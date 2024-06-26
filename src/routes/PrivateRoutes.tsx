@@ -1,18 +1,20 @@
 import { Navigate, RouteObject } from "react-router-dom";
 
-import { Role } from "../enums/role.enum";
+import { UserRole } from "../enums/user-role.enum";
 import { PrivateLayout } from "../layout/PrivateLayout";
 import { DashboardPage } from "../pages/Dashboard";
 import { CustomersListPage } from "../pages/Customers/List";
 import { CustomersFormPage } from "../pages/Customers/Form";
-import { EmployeesListPage } from "../pages/Employees/List";
-import { EmployeesFormPage } from "../pages/Employees/Form";
+import { ProductsListPage } from "../pages/Products/List";
+import { ProductsFormPage } from "../pages/Products/Form";
 import { ServicesListPage } from "../pages/Services/List";
 import { ServicesFormPage } from "../pages/Services/Form";
+import { UsersListPage } from "../pages/Users/List";
+import { UsersFormPage } from "../pages/Users/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
-  roles?: Role[];
+  roles?: UserRole[];
 };
 
 const routes: PrivateRoute[] = [
@@ -27,7 +29,7 @@ const routes: PrivateRoute[] = [
       {
         path: "/customers/create",
         element: <CustomersFormPage />,
-        roles: [Role.Admin, Role.Attendant],
+        roles: [UserRole.Admin, UserRole.Attendant],
       },
       {
         path: "/customers/:externalId",
@@ -36,19 +38,17 @@ const routes: PrivateRoute[] = [
     ],
   },
   {
-    path: "/employees",
-    roles: [Role.Admin],
+    path: "/products",
     children: [
-      { index: true, element: <EmployeesListPage />, roles: [Role.Admin] },
+      { index: true, element: <ProductsListPage /> },
       {
-        path: "/employees/create",
-        element: <EmployeesFormPage />,
-        roles: [Role.Admin],
+        path: "/products/create",
+        element: <ProductsFormPage />,
+        roles: [UserRole.Admin],
       },
       {
-        path: "/employees/:externalId",
-        element: <EmployeesFormPage />,
-        roles: [Role.Admin],
+        path: "/products/:externalId",
+        element: <ProductsFormPage />,
       },
     ],
   },
@@ -59,7 +59,7 @@ const routes: PrivateRoute[] = [
       {
         path: "/services/create",
         element: <ServicesFormPage />,
-        roles: [Role.Admin],
+        roles: [UserRole.Admin],
       },
       {
         path: "/services/:externalId",
@@ -67,9 +67,26 @@ const routes: PrivateRoute[] = [
       },
     ],
   },
+  {
+    path: "/users",
+    roles: [UserRole.Admin],
+    children: [
+      { index: true, element: <UsersListPage />, roles: [UserRole.Admin] },
+      {
+        path: "/users/create",
+        element: <UsersFormPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/users/:externalId",
+        element: <UsersFormPage />,
+        roles: [UserRole.Admin],
+      },
+    ],
+  },
 ];
 
-function filterRoutesByRole(routes: PrivateRoute[], userRole: Role) {
+function filterRoutesByRole(routes: PrivateRoute[], userRole: UserRole) {
   return routes.reduce<PrivateRoute[]>((filteredRoutes, route) => {
     if (!route.roles || route.roles.includes(userRole)) {
       const children = route.children
@@ -91,7 +108,7 @@ function filterRoutesByRole(routes: PrivateRoute[], userRole: Role) {
 
 export function PrivateRoutes(
   isLoggedIn: boolean,
-  userRole: Role | undefined
+  userRole: UserRole | undefined
 ): RouteObject {
   const roleRoutes =
     isLoggedIn && userRole ? filterRoutesByRole(routes, userRole) : [];

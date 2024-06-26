@@ -1,23 +1,37 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { Delete, Edit, Visibility } from "@mui/icons-material";
 
 import { ConfirmationDialog } from "../ConfirmationDialog";
+import { UserRole } from "../../enums/user-role.enum";
+import { useAppSelector } from "../../store/hooks";
+import { isInRole } from "../../utils/auth";
 
 export interface DataTableActionsProps {
+  viewPermission?: UserRole[];
+  editPermission?: UserRole[];
+  deletePermission?: UserRole[];
   onViewClick: () => void;
   onEditClick: () => void;
   onDeleteClick: () => Promise<void>;
 }
 
 export function DataTableActions({
+  viewPermission,
+  editPermission,
+  deletePermission,
   onViewClick,
   onEditClick,
   onDeleteClick,
 }: DataTableActionsProps) {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { user } = useAppSelector((state) => state.auth);
+
+  const hasViewPermission = isInRole(viewPermission, user!);
+  const hasEditPermission = isInRole(editPermission, user!);
+  const hasDeletePermission = isInRole(deletePermission, user!);
 
   function handleDeleteClick() {
     setOpenDialog(true);
@@ -35,24 +49,42 @@ export function DataTableActions({
 
   return (
     <Box>
-      <GridActionsCellItem
-        icon={<Visibility />}
-        label="Visualizar"
-        onClick={onViewClick}
-        color="inherit"
-      />
-      <GridActionsCellItem
-        icon={<Edit />}
-        label="Editar"
-        onClick={onEditClick}
-        color="inherit"
-      />
-      <GridActionsCellItem
-        icon={<Delete />}
-        label="Excluir"
-        onClick={handleDeleteClick}
-        color="inherit"
-      />
+      <Tooltip title={hasViewPermission ? "" : "Sem permissão"}>
+        <span>
+          <GridActionsCellItem
+            disabled={!hasViewPermission}
+            icon={<Visibility />}
+            label="Visualizar"
+            onClick={onViewClick}
+            color="inherit"
+          />
+        </span>
+      </Tooltip>
+
+      <Tooltip title={hasEditPermission ? "" : "Sem permissão"}>
+        <span>
+          <GridActionsCellItem
+            disabled={!hasEditPermission}
+            icon={<Edit />}
+            label="Editar"
+            onClick={onEditClick}
+            color="inherit"
+          />
+        </span>
+      </Tooltip>
+
+      <Tooltip title={hasDeletePermission ? "" : "Sem permissão"}>
+        <span>
+          <GridActionsCellItem
+            disabled={!hasDeletePermission}
+            icon={<Delete />}
+            label="Excluir"
+            onClick={handleDeleteClick}
+            color="inherit"
+          />
+        </span>
+      </Tooltip>
+
       <ConfirmationDialog
         open={openDialog}
         keepMounted

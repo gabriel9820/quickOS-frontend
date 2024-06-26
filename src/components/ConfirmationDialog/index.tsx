@@ -1,3 +1,4 @@
+import { ThumbUpAlt } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Button,
@@ -39,7 +40,7 @@ export function ConfirmationDialog({
         <Button
           autoFocus
           variant="outlined"
-          color="secondary"
+          color="inherit"
           onClick={handleCancel}
         >
           Não
@@ -50,6 +51,7 @@ export function ConfirmationDialog({
           variant="contained"
           color="primary"
           onClick={handleOk}
+          startIcon={<ThumbUpAlt />}
         >
           Sim
         </LoadingButton>

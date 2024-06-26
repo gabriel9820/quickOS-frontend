@@ -46,7 +46,7 @@ export const deleteService = createAsyncThunk(
       dispatch(
         addNotification({
           type: "success",
-          message: "Registro excluído com sucesso",
+          message: "Registro excluído",
         })
       );
 

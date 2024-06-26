@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
 import { Dashboard, Person, AttachMoney, Build } from "@mui/icons-material";
 
-import { Role } from "../../enums/role.enum";
+import { UserRole } from "../../enums/user-role.enum";
 
 export interface MenuItem {
   label: string;
   icon?: ReactNode;
   items?: MenuItem[];
   to?: string;
-  roles?: Role[];
+  roles?: UserRole[];
 }
 
 export const menuItems: MenuItem[] = [
@@ -26,11 +26,6 @@ export const menuItems: MenuItem[] = [
         to: "/customers",
       },
       {
-        label: "Funcionários",
-        to: "/employees",
-        roles: [Role.Admin],
-      },
-      {
         label: "Produtos",
         to: "/products",
       },
@@ -38,12 +33,17 @@ export const menuItems: MenuItem[] = [
         label: "Serviços",
         to: "/services",
       },
+      {
+        label: "Usuários",
+        to: "/users",
+        roles: [UserRole.Admin],
+      },
     ],
   },
   {
     label: "Financeiro",
     icon: <AttachMoney />,
-    roles: [Role.Admin],
+    roles: [UserRole.Admin],
     items: [
       { label: "Contas a Pagar", to: "/accounts-payable" },
       { label: "Contas a Receber", to: "/accounts-receivable" },

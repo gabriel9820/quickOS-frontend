@@ -4,16 +4,23 @@ import {
   Avatar,
   Box,
   IconButton,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import {
+  Logout,
+  ManageAccounts,
+  Menu as MenuIcon,
+  Store,
+} from "@mui/icons-material";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logoutUser } from "../../store/auth/actions";
-import { Role } from "../../enums/role.enum";
+import { UserRole } from "../../enums/user-role.enum";
 
 interface Props {
   isMenuOpen: boolean;
@@ -41,8 +48,8 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
     <AppBar
       position="fixed"
       sx={{
-        marginLeft: isMenuOpen ? "250px" : 0,
-        width: isMenuOpen ? "calc(100% - 250px)" : "100%",
+        marginLeft: isMenuOpen ? "300px" : 0,
+        width: isMenuOpen ? "calc(100% - 300px)" : "100%",
         transition: "ease 225ms",
         backdropFilter: "blur(5px)",
         backgroundColor: "transparent",
@@ -73,7 +80,9 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
 
         <Box>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar />
+            <Avatar
+              sx={{ width: 32, height: 32, backgroundColor: "text.primary" }}
+            />
           </IconButton>
 
           <Menu
@@ -93,19 +102,27 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
               horizontal: "right",
             }}
           >
-            {user?.role === Role.Admin && (
+            {user?.role === UserRole.Admin && (
               <MenuItem disabled>
-                <Typography textAlign="center">Meu Estabelecimento</Typography>
+                <ListItemIcon>
+                  <Store />
+                </ListItemIcon>
+                <ListItemText>Meu Estabelecimento</ListItemText>
               </MenuItem>
             )}
+
             <MenuItem disabled>
-              <Typography textAlign="center">Minha Conta</Typography>
+              <ListItemIcon>
+                <ManageAccounts />
+              </ListItemIcon>
+              <ListItemText>Minha Conta</ListItemText>
             </MenuItem>
-            <MenuItem disabled>
-              <Typography textAlign="center">Alterar Senha</Typography>
-            </MenuItem>
+
             <MenuItem onClick={handleLogoutClick}>
-              <Typography textAlign="center">Sair</Typography>
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText>Sair</ListItemText>
             </MenuItem>
           </Menu>
         </Box>

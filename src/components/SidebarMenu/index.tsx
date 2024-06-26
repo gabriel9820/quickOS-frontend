@@ -22,6 +22,7 @@ interface Props {
 
 export function SidebarMenu({ isOpen }: Props) {
   const [openItems, setOpenItems] = useState<string[]>([]);
+  const [selectedItem, setSelectedItem] = useState("/dashboard");
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
 
@@ -35,6 +36,7 @@ export function SidebarMenu({ isOpen }: Props) {
 
   function handleItemClick(menuItem: MenuItem) {
     if (menuItem.to) {
+      setSelectedItem(menuItem.to);
       navigate(menuItem.to);
     } else if (menuItem.items) {
       toggleCollapse(menuItem.label);
@@ -45,6 +47,8 @@ export function SidebarMenu({ isOpen }: Props) {
     return (
       <List>
         {items.map((menuItem, index) => {
+          const isSelected = menuItem.to === selectedItem;
+
           if (
             !user?.role ||
             (menuItem.roles?.length && !menuItem.roles.includes(user.role))
@@ -54,10 +58,27 @@ export function SidebarMenu({ isOpen }: Props) {
 
           return (
             <Fragment key={index}>
-              <ListItem disablePadding>
-                <ListItemButton onClick={() => handleItemClick(menuItem)}>
-                  <ListItemIcon>{menuItem.icon}</ListItemIcon>
-                  <ListItemText primary={menuItem.label} />
+              <ListItem sx={{ paddingY: 0, marginBottom: 0.3 }}>
+                <ListItemButton
+                  onClick={() => handleItemClick(menuItem)}
+                  sx={{
+                    borderRadius: 1,
+                    color: isSelected ? "#5BE49B" : "text.secondary",
+                    backgroundColor: isSelected ? "#123230" : "transparent",
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{ color: isSelected ? "#5BE49B" : "text.secondary" }}
+                  >
+                    {menuItem.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={menuItem.label}
+                    primaryTypographyProps={{
+                      fontSize: "0.9rem",
+                      fontWeight: 500,
+                    }}
+                  />
                   {menuItem.items &&
                     (openItems.includes(menuItem.label) ? (
                       <ExpandLess />
@@ -83,8 +104,12 @@ export function SidebarMenu({ isOpen }: Props) {
   }
 
   return (
-    <Drawer open={isOpen} variant="persistent">
-      <Box sx={{ width: 250 }} role="presentation">
+    <Drawer
+      open={isOpen}
+      variant="persistent"
+      PaperProps={{ sx: { backgroundColor: "background.default" } }}
+    >
+      <Box sx={{ width: 300 }} role="presentation">
         <Box
           sx={{
             height: "64px",

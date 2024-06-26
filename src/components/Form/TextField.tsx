@@ -4,9 +4,10 @@ import { useFormContext } from "react-hook-form";
 export function FormTextField({ name = "", ...props }: TextFieldProps) {
   const {
     register,
-    formState: { errors },
+    formState: { errors, disabled },
   } = useFormContext();
   const fieldError = errors[name];
+  const disabledInput = disabled || props.disabled;
 
   return (
     <TextField
@@ -14,7 +15,12 @@ export function FormTextField({ name = "", ...props }: TextFieldProps) {
       {...register(name)}
       error={!!fieldError}
       helperText={fieldError?.message?.toString()}
-      InputLabelProps={{ shrink: true }}
+      InputLabelProps={{ ...props.InputLabelProps, shrink: true }}
+      InputProps={{
+        ...props.InputProps,
+        readOnly: disabledInput,
+        disabled: disabledInput,
+      }}
     />
   );
 }
