@@ -1,11 +1,11 @@
 interface Address {
-  zipCode?: string;
-  street?: string;
-  number?: string;
-  details?: string;
-  neighborhood?: string;
-  city?: string;
-  state?: string;
+  zipCode?: string | null;
+  street?: string | null;
+  number?: string | null;
+  details?: string | null;
+  neighborhood?: string | null;
+  city?: string | null;
+  state?: string | null;
 }
 
 export interface AddressInputModel extends Address {}
