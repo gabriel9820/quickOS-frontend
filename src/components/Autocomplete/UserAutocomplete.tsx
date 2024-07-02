@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 
 import { BaseAutocomplete, BaseAutocompleteProps } from "./BaseAutocomplete";
-import { UnitOfMeasurementOutputModel } from "../../models/unit-of-measurement.model";
-import { fillUnitOfMeasurementAutoCompleteAsync } from "../../services/unit-of-measurement.service";
+import { UserOutputModel } from "../../models/user.model";
+import { fillUserAutoCompleteAsync } from "../../services/user.service";
 import { useAppDispatch } from "../../store/hooks";
 import { handleError } from "../../utils/error-handler";
 
-export function UnitOfMeasurementAutocomplete(
-  props: BaseAutocompleteProps<UnitOfMeasurementOutputModel>
+export function UserAutocomplete(
+  props: BaseAutocompleteProps<UserOutputModel>
 ) {
   const dispatch = useAppDispatch();
-  const [options, setOptions] = useState<UnitOfMeasurementOutputModel[]>([]);
+  const [options, setOptions] = useState<UserOutputModel[]>([]);
 
   useEffect(() => {
     async function fill() {
       try {
-        const { data } = await fillUnitOfMeasurementAutoCompleteAsync();
+        const { data } = await fillUserAutoCompleteAsync();
 
         setOptions(data);
       } catch (error) {
@@ -34,7 +34,7 @@ export function UnitOfMeasurementAutocomplete(
         option.externalId === value.externalId
       }
       getOptionKey={(option: any) => option.externalId}
-      getOptionLabel={(option: any) => option.name}
+      getOptionLabel={(option: any) => option.fullName}
     />
   );
 }
