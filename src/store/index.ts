@@ -6,6 +6,7 @@ import { customersReducer } from "./customers";
 import { productsReducer } from "./products";
 import { servicesReducer } from "./services";
 import { usersReducer } from "./users";
+import { serviceOrdersReducer } from "./service-orders";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     customers: customersReducer,
     products: productsReducer,
     services: servicesReducer,
-    users: usersReducer,    
+    users: usersReducer,
+    serviceOrders: serviceOrdersReducer,
   },
 });
 

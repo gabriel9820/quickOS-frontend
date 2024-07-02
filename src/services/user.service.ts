@@ -14,6 +14,10 @@ export async function getAllUsersAsync(params: UserQueryParams) {
   return api.get<PagedResult<UserOutputModel[]>>(`/user?${query}`);
 }
 
+export async function fillUserAutoCompleteAsync() {
+  return api.get<UserOutputModel[]>("/user/fill-autocomplete");
+}
+
 export async function getUserAsync(externalId: string) {
   return api.get<UserOutputModel>(`/user/${externalId}`);
 }

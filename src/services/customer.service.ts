@@ -14,6 +14,10 @@ export async function getAllCustomersAsync(params: CustomerQueryParams) {
   return api.get<PagedResult<CustomerOutputModel[]>>(`/customer?${query}`);
 }
 
+export async function fillCustomerAutoCompleteAsync() {
+  return api.get<CustomerOutputModel[]>("/customer/fill-autocomplete");
+}
+
 export async function getCustomerAsync(externalId: string) {
   return api.get<CustomerOutputModel>(`/customer/${externalId}`);
 }
