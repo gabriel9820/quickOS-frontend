@@ -38,3 +38,8 @@ export const serviceOrdersFiltersFormSchema = z.object({
 export type ServiceOrdersFiltersFormData = z.infer<
   typeof serviceOrdersFiltersFormSchema
 >;
+
+export type ServiceOrdersFiltersFormDataRedux = Omit<
+  ServiceOrdersFiltersFormData,
+  "date"
+> & { date?: string };

@@ -4,13 +4,13 @@ import {
   Sorting,
 } from "../../models/pagination.model";
 import { ServiceOrderOutputModel } from "../../models/service-order.model";
-import { ServiceOrdersFiltersFormData } from "../../pages/ServiceOrders/List/schemas";
+import { ServiceOrdersFiltersFormDataRedux } from "../../pages/ServiceOrders/List/schemas";
 
 export interface ServiceOrdersReducerProps {
   pagedResult: PagedResult<ServiceOrderOutputModel[]> | undefined;
   isLoading: boolean;
   pagination: Pagination;
-  filters: ServiceOrdersFiltersFormData | undefined;
+  filters: ServiceOrdersFiltersFormDataRedux | undefined;
   sorting: Sorting;
 }
 

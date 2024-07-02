@@ -26,7 +26,7 @@ export interface ServiceOrderOutputModel extends ServiceOrder {
 
 export interface ServiceOrderQueryParams extends Pagination {
   number?: number;
-  date?: Date;
+  date?: string;
   status?: ServiceOrderStatus[];
   customer?: string;
   technician?: string;

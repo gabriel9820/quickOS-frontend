@@ -15,7 +15,7 @@ import {
   Sorting,
 } from "../../models/pagination.model";
 import { ServiceOrderOutputModel } from "../../models/service-order.model";
-import { ServiceOrdersFiltersFormData } from "../../pages/ServiceOrders/List/schemas";
+import { ServiceOrdersFiltersFormDataRedux } from "../../pages/ServiceOrders/List/schemas";
 
 const INITIAL_STATE = {
   pagedResult: emptyPagedResult,
@@ -55,7 +55,7 @@ export const serviceOrdersReducer = createReducer<ServiceOrdersReducerProps>(
       )
       .addCase(
         changeFiltersServiceOrder,
-        (state, action: PayloadAction<ServiceOrdersFiltersFormData>) => ({
+        (state, action: PayloadAction<ServiceOrdersFiltersFormDataRedux>) => ({
           ...state,
           filters: action.payload,
         })

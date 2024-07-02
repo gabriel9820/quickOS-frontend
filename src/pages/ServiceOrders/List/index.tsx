@@ -60,7 +60,12 @@ export function ServiceOrdersListPage() {
   }
 
   function handleFilterClick(filtersFormData: ServiceOrdersFiltersFormData) {
-    dispatch(changeFiltersServiceOrder(filtersFormData));
+    dispatch(
+      changeFiltersServiceOrder({
+        ...filtersFormData,
+        date: filtersFormData.date?.toISOString(),
+      })
+    );
   }
 
   function handleResetFiltersClick() {
