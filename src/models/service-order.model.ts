@@ -10,7 +10,6 @@ interface ServiceOrder {
   equipmentDescription?: string;
   problemDescription?: string;
   technicalReport?: string;
-  totalPrice: number;
 }
 
 export interface ServiceOrderInputModel extends ServiceOrder {
@@ -22,6 +21,7 @@ export interface ServiceOrderOutputModel extends ServiceOrder {
   externalId: string;
   customer: CustomerOutputModel;
   technician: UserOutputModel;
+  totalPrice: number;
 }
 
 export interface ServiceOrderQueryParams extends Pagination {
