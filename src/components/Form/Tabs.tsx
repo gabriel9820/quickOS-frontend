@@ -28,9 +28,14 @@ export function FormTabPanel({ children, ...props }: TabPanelProps) {
 export interface FormTabActionsProps {
   readOnly: boolean;
   loading?: boolean;
+  onSubmitClick?: () => void;
 }
 
-export function FormTabActions({ readOnly, loading }: FormTabActionsProps) {
+export function FormTabActions({
+  readOnly,
+  loading,
+  onSubmitClick,
+}: FormTabActionsProps) {
   const navigate = useNavigate();
 
   function handleCancelClick() {
@@ -59,6 +64,7 @@ export function FormTabActions({ readOnly, loading }: FormTabActionsProps) {
           loading={loading}
           type="submit"
           sx={{ marginLeft: 1 }}
+          onClick={onSubmitClick}
         >
           Salvar
         </LoadingButton>

@@ -12,9 +12,9 @@ export interface DataTableActionsProps {
   viewPermission?: UserRole[];
   editPermission?: UserRole[];
   deletePermission?: UserRole[];
-  onViewClick: () => void;
-  onEditClick: () => void;
-  onDeleteClick: () => Promise<void>;
+  onViewClick?: () => void;
+  onEditClick?: () => void;
+  onDeleteClick?: () => Promise<void> | void;
 }
 
 export function DataTableActions({
@@ -40,7 +40,9 @@ export function DataTableActions({
   async function handleCloseDialog(confirmed: boolean) {
     if (confirmed) {
       setLoading(true);
-      await onDeleteClick();
+      if (onDeleteClick) {
+        await onDeleteClick();
+      }
       setLoading(false);
     }
 
@@ -49,41 +51,47 @@ export function DataTableActions({
 
   return (
     <Box>
-      <Tooltip title={hasViewPermission ? "" : "Sem permissão"}>
-        <span>
-          <GridActionsCellItem
-            disabled={!hasViewPermission}
-            icon={<Visibility />}
-            label="Visualizar"
-            onClick={onViewClick}
-            color="inherit"
-          />
-        </span>
-      </Tooltip>
+      {onViewClick && (
+        <Tooltip title={hasViewPermission ? "" : "Sem permissão"}>
+          <span>
+            <GridActionsCellItem
+              disabled={!hasViewPermission}
+              icon={<Visibility />}
+              label="Visualizar"
+              onClick={onViewClick}
+              color="inherit"
+            />
+          </span>
+        </Tooltip>
+      )}
 
-      <Tooltip title={hasEditPermission ? "" : "Sem permissão"}>
-        <span>
-          <GridActionsCellItem
-            disabled={!hasEditPermission}
-            icon={<Edit />}
-            label="Editar"
-            onClick={onEditClick}
-            color="inherit"
-          />
-        </span>
-      </Tooltip>
+      {onEditClick && (
+        <Tooltip title={hasEditPermission ? "" : "Sem permissão"}>
+          <span>
+            <GridActionsCellItem
+              disabled={!hasEditPermission}
+              icon={<Edit />}
+              label="Editar"
+              onClick={onEditClick}
+              color="inherit"
+            />
+          </span>
+        </Tooltip>
+      )}
 
-      <Tooltip title={hasDeletePermission ? "" : "Sem permissão"}>
-        <span>
-          <GridActionsCellItem
-            disabled={!hasDeletePermission}
-            icon={<Delete />}
-            label="Excluir"
-            onClick={handleDeleteClick}
-            color="inherit"
-          />
-        </span>
-      </Tooltip>
+      {onDeleteClick && (
+        <Tooltip title={hasDeletePermission ? "" : "Sem permissão"}>
+          <span>
+            <GridActionsCellItem
+              disabled={!hasDeletePermission}
+              icon={<Delete />}
+              label="Excluir"
+              onClick={handleDeleteClick}
+              color="inherit"
+            />
+          </span>
+        </Tooltip>
+      )}
 
       <ConfirmationDialog
         open={openDialog}
