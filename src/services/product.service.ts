@@ -14,6 +14,10 @@ export async function getAllProductsAsync(params: ProductQueryParams) {
   return api.get<PagedResult<ProductOutputModel[]>>(`/product?${query}`);
 }
 
+export async function fillProductAutoCompleteAsync() {
+  return api.get<ProductOutputModel[]>("/product/fill-autocomplete");
+}
+
 export async function getProductAsync(externalId: string) {
   return api.get<ProductOutputModel>(`/product/${externalId}`);
 }
