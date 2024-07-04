@@ -34,6 +34,26 @@ export const serviceOrdersMainFormSchema = z.object({
   totalPrice: z.number({ required_error: "Valor Total é obrigatório" }),
 });
 
+export const serviceOrdersServiceFormSchema = z.object({
+  service: z.object(
+    {
+      externalId: z.string({ required_error: "ID é obrigatório" }),
+      name: z.string({ required_error: "Nome é obrigatório" }),
+    },
+    { invalid_type_error: "Serviço é obrigatório" }
+  ),
+  quantity: z
+    .number({ required_error: "Quantidade é obrigatório" })
+    .gt(0, "Quantidade deve ser maior que zero"),
+  price: z
+    .number({ required_error: "Valor é obrigatório" })
+    .gt(0, "Valor deve ser maior que zero"),
+});
+
 export type ServiceOrdersMainFormData = z.infer<
   typeof serviceOrdersMainFormSchema
+>;
+
+export type ServiceOrdersServiceFormData = z.infer<
+  typeof serviceOrdersServiceFormSchema
 >;

@@ -9,7 +9,9 @@ import { FormTitle } from "../../../components/FormTitle";
 import { MainForm } from "./MainForm";
 import {
   ServiceOrdersMainFormData,
+  ServiceOrdersServiceFormData,
   serviceOrdersMainFormSchema,
+  serviceOrdersServiceFormSchema,
 } from "./schemas";
 import {
   createServiceOrderAsync,
@@ -21,9 +23,14 @@ import { handleError } from "../../../utils/error-handler";
 import { useAppDispatch } from "../../../store/hooks";
 import { Form } from "../../../components/Form";
 import { addNotification } from "../../../store/notification/actions";
-import { ServiceOrderInputModel } from "../../../models/service-order.model";
+import {
+  ServiceOrderInputModel,
+  ServiceOrderServiceInputModel,
+  ServiceOrderServiceOutputModel,
+} from "../../../models/service-order.model";
 import { serviceOrderStatusOptions } from "../../../components/Autocomplete/ServiceOrderStatusAutocomplete";
 import { ServiceOrderStatus } from "../../../enums/service-order-status.enum";
+import { ServiceForm } from "./ServiceForm";
 
 type Params = {
   externalId: string;
@@ -37,8 +44,11 @@ export function ServiceOrdersFormPage() {
   const { externalId } = useParams<Params>();
   const [currentTabIndex, setCurrentTabIndex] = useState("1");
   const [loading, setLoading] = useState(false);
+  const [services, setServices] = useState<ServiceOrderServiceOutputModel[]>(
+    []
+  );
 
-  const form = useForm<ServiceOrdersMainFormData>({
+  const formPrincipal = useForm<ServiceOrdersMainFormData>({
     resolver: zodResolver(serviceOrdersMainFormSchema),
     disabled: readOnly,
     defaultValues: {
@@ -50,45 +60,57 @@ export function ServiceOrdersFormPage() {
     },
   });
 
+  const formService = useForm<ServiceOrdersServiceFormData>({
+    resolver: zodResolver(serviceOrdersServiceFormSchema),
+    disabled: readOnly,
+  });
+
   const setFormData = useCallback(
     async (externalId: string) => {
       try {
         const { data } = await getServiceOrderAsync(externalId);
 
-        form.setValue("number", data.number);
-        form.setValue("date", dayjs(data.date));
-        form.setValue(
+        formPrincipal.setValue("number", data.number);
+        formPrincipal.setValue("date", dayjs(data.date));
+        formPrincipal.setValue(
           "status",
           serviceOrderStatusOptions.find((o) => o.key === data.status)!
         );
-        form.setValue("equipmentDescription", data.equipmentDescription);
-        form.setValue("problemDescription", data.problemDescription);
-        form.setValue("technicalReport", data.technicalReport);
-        form.setValue("totalPrice", data.totalPrice);
-        form.setValue("customer", {
+        formPrincipal.setValue(
+          "equipmentDescription",
+          data.equipmentDescription
+        );
+        formPrincipal.setValue("problemDescription", data.problemDescription);
+        formPrincipal.setValue("technicalReport", data.technicalReport);
+        formPrincipal.setValue("totalPrice", data.totalPrice);
+        formPrincipal.setValue("customer", {
           externalId: data.customer?.externalId,
           fullName: data.customer?.fullName,
         });
-        form.setValue("technician", {
+        formPrincipal.setValue("technician", {
           externalId: data.technician?.externalId,
           fullName: data.technician?.fullName,
         });
+
+        if (data.services) {
+          setServices(data.services);
+        }
       } catch (error) {
         handleError(error, dispatch);
       }
     },
-    [form, dispatch]
+    [formPrincipal, dispatch]
   );
 
   const setInitialData = useCallback(async () => {
     try {
       const { data: nextNumber } = await getNextServiceOrderNumberAsync();
 
-      form.setValue("number", nextNumber);
+      formPrincipal.setValue("number", nextNumber);
     } catch (error) {
       handleError(error, dispatch);
     }
-  }, [form, dispatch]);
+  }, [formPrincipal, dispatch]);
 
   useEffect(() => {
     if (externalId) {
@@ -102,14 +124,30 @@ export function ServiceOrdersFormPage() {
     setCurrentTabIndex(newIndex);
   }
 
-  async function handleSaveClick(formData: ServiceOrdersMainFormData) {
+  async function handleSaveClick() {
     try {
+      const isFormPrincipalValid = await formPrincipal.trigger();
+
+      if (!isFormPrincipalValid) {
+        setCurrentTabIndex("1");
+        return;
+      }
+
+      const formPrincipalData = formPrincipal.getValues();
+      const servicesInputModel = services.map<ServiceOrderServiceInputModel>(
+        (s) => ({
+          ...s,
+          service: s.service.externalId!,
+        })
+      );
+
       const dto: ServiceOrderInputModel = {
-        ...formData,
-        date: formData.date.toDate(),
-        customer: formData.customer?.externalId,
-        technician: formData.technician?.externalId,
-        status: formData.status?.key,
+        ...formPrincipalData,
+        date: formPrincipalData.date.toDate(),
+        customer: formPrincipalData.customer?.externalId,
+        technician: formPrincipalData.technician?.externalId,
+        status: formPrincipalData.status?.key,
+        services: servicesInputModel,
       };
 
       setLoading(true);
@@ -135,19 +173,30 @@ export function ServiceOrdersFormPage() {
     <Box>
       <FormTitle>Ordem de Serviço</FormTitle>
 
-      <Form form={form} onSubmit={handleSaveClick}>
-        <Form.TabContext value={currentTabIndex}>
-          <Form.TabList onChange={handleTabChange}>
-            <Form.Tab label="Principal" value="1" />
-          </Form.TabList>
+      <Form.TabContext value={currentTabIndex}>
+        <Form.TabList onChange={handleTabChange}>
+          <Form.Tab label="Principal" value="1" />
+          <Form.Tab label="Serviços" value="2" />
+        </Form.TabList>
 
-          <Form.TabPanel value="1">
+        <Form.TabPanel value="1">
+          <Form form={formPrincipal}>
             <MainForm creating={!externalId} />
-          </Form.TabPanel>
+          </Form>
+        </Form.TabPanel>
 
-          <Form.TabActions readOnly={readOnly} loading={loading} />
-        </Form.TabContext>
-      </Form>
+        <Form.TabPanel value="2">
+          <Form form={formService}>
+            <ServiceForm services={services} setServices={setServices} />
+          </Form>
+        </Form.TabPanel>
+
+        <Form.TabActions
+          readOnly={readOnly}
+          loading={loading}
+          onSubmitClick={handleSaveClick}
+        />
+      </Form.TabContext>
     </Box>
   );
 }
