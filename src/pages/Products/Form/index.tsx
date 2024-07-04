@@ -48,8 +48,8 @@ export function ProductsFormPage() {
         form.setValue("code", data.code);
         form.setValue("name", data.name);
         form.setValue("description", data.description);
-        form.setValue("costPrice", data.costPrice);
-        form.setValue("profitMargin", data.profitMargin);
+        form.setValue("costPrice", data.costPrice || undefined);
+        form.setValue("profitMargin", data.profitMargin || undefined);
         form.setValue("sellingPrice", data.sellingPrice);
         form.setValue("stock", data.stock);
         form.setValue("unitOfMeasurement", {
