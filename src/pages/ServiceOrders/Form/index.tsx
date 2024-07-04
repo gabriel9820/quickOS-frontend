@@ -9,8 +9,10 @@ import { FormTitle } from "../../../components/FormTitle";
 import { MainForm } from "./MainForm";
 import {
   ServiceOrdersMainFormData,
+  ServiceOrdersProductFormData,
   ServiceOrdersServiceFormData,
   serviceOrdersMainFormSchema,
+  serviceOrdersProductFormSchema,
   serviceOrdersServiceFormSchema,
 } from "./schemas";
 import {
@@ -25,12 +27,15 @@ import { Form } from "../../../components/Form";
 import { addNotification } from "../../../store/notification/actions";
 import {
   ServiceOrderInputModel,
+  ServiceOrderProductInputModel,
+  ServiceOrderProductOutputModel,
   ServiceOrderServiceInputModel,
   ServiceOrderServiceOutputModel,
 } from "../../../models/service-order.model";
 import { serviceOrderStatusOptions } from "../../../components/Autocomplete/ServiceOrderStatusAutocomplete";
 import { ServiceOrderStatus } from "../../../enums/service-order-status.enum";
 import { ServiceForm } from "./ServiceForm";
+import { ProductForm } from "./ProductForm";
 
 type Params = {
   externalId: string;
@@ -45,6 +50,9 @@ export function ServiceOrdersFormPage() {
   const [currentTabIndex, setCurrentTabIndex] = useState("1");
   const [loading, setLoading] = useState(false);
   const [services, setServices] = useState<ServiceOrderServiceOutputModel[]>(
+    []
+  );
+  const [products, setProducts] = useState<ServiceOrderProductOutputModel[]>(
     []
   );
 
@@ -62,6 +70,11 @@ export function ServiceOrdersFormPage() {
 
   const formService = useForm<ServiceOrdersServiceFormData>({
     resolver: zodResolver(serviceOrdersServiceFormSchema),
+    disabled: readOnly,
+  });
+
+  const formProduct = useForm<ServiceOrdersProductFormData>({
+    resolver: zodResolver(serviceOrdersProductFormSchema),
     disabled: readOnly,
   });
 
@@ -95,6 +108,10 @@ export function ServiceOrdersFormPage() {
         if (data.services) {
           setServices(data.services);
         }
+
+        if (data.products) {
+          setProducts(data.products);
+        }
       } catch (error) {
         handleError(error, dispatch);
       }
@@ -120,6 +137,17 @@ export function ServiceOrdersFormPage() {
     }
   }, [externalId, setFormData, setInitialData]);
 
+  useEffect(() => {
+    const totalServices = services
+      .map((s) => s.totalPrice)
+      .reduce((prev, curr) => prev + curr, 0);
+    const totalProducts = products
+      .map((p) => p.totalPrice)
+      .reduce((prev, curr) => prev + curr, 0);
+
+    formPrincipal.setValue("totalPrice", totalServices + totalProducts);
+  }, [services, products, formPrincipal]);
+
   function handleTabChange(_: SyntheticEvent, newIndex: string) {
     setCurrentTabIndex(newIndex);
   }
@@ -140,6 +168,12 @@ export function ServiceOrdersFormPage() {
           service: s.service.externalId!,
         })
       );
+      const productsInputModel = products.map<ServiceOrderProductInputModel>(
+        (s) => ({
+          ...s,
+          product: s.product.externalId!,
+        })
+      );
 
       const dto: ServiceOrderInputModel = {
         ...formPrincipalData,
@@ -148,6 +182,7 @@ export function ServiceOrdersFormPage() {
         technician: formPrincipalData.technician?.externalId,
         status: formPrincipalData.status?.key,
         services: servicesInputModel,
+        products: productsInputModel,
       };
 
       setLoading(true);
@@ -177,6 +212,7 @@ export function ServiceOrdersFormPage() {
         <Form.TabList onChange={handleTabChange}>
           <Form.Tab label="Principal" value="1" />
           <Form.Tab label="Serviços" value="2" />
+          <Form.Tab label="Produtos" value="3" />
         </Form.TabList>
 
         <Form.TabPanel value="1">
@@ -188,6 +224,12 @@ export function ServiceOrdersFormPage() {
         <Form.TabPanel value="2">
           <Form form={formService}>
             <ServiceForm services={services} setServices={setServices} />
+          </Form>
+        </Form.TabPanel>
+
+        <Form.TabPanel value="3">
+          <Form form={formProduct}>
+            <ProductForm products={products} setProducts={setProducts} />
           </Form>
         </Form.TabPanel>
 
