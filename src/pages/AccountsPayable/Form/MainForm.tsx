@@ -1,8 +1,33 @@
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Grid } from "@mui/material";
+import { useFormContext } from "react-hook-form";
+import dayjs from "dayjs";
 
 import { Form } from "../../../components/Form";
+import { AccountsPayableMainFormData } from "./schemas";
 
-export function MainForm() {
+interface Props {
+  isPaidOut: boolean;
+  setIsPaidOut: Dispatch<SetStateAction<boolean>>;
+}
+
+export function MainForm({ isPaidOut, setIsPaidOut }: Props) {
+  const { setValue, resetField } =
+    useFormContext<AccountsPayableMainFormData>();
+
+  function handleIsPaidOutChange(
+    _: ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) {
+    setIsPaidOut(checked);
+
+    if (checked) {
+      setValue("paymentDate", dayjs(new Date()));
+    } else {
+      resetField("paymentDate");
+    }
+  }
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} xl={6}>
@@ -12,6 +37,7 @@ export function MainForm() {
           label="Data de Emissão"
           views={["day", "month", "year"]}
           size="small"
+          autoFocus
         />
       </Grid>
 
@@ -48,8 +74,24 @@ export function MainForm() {
       </Grid>
 
       <Grid item xs={12} xl={6}>
-        <Form.Switch name="isPaidOut" label="Pago" />
+        <Form.Switch
+          name="isPaidOut"
+          label="Pago"
+          onChange={handleIsPaidOutChange}
+        />
       </Grid>
+
+      {isPaidOut && (
+        <Grid item xs={12} xl={6}>
+          <Form.DateTimePicker
+            name="paymentDate"
+            fullWidth
+            label="Data de Pagamento"
+            views={["day", "month", "year"]}
+            size="small"
+          />
+        </Grid>
+      )}
     </Grid>
   );
 }

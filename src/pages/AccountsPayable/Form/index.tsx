@@ -34,11 +34,13 @@ export function AccountsPayableFormPage() {
   const { externalId } = useParams<Params>();
   const [currentTabIndex, setCurrentTabIndex] = useState("1");
   const [loading, setLoading] = useState(false);
+  const [isPaidOut, setIsPaidOut] = useState(false);
 
   const form = useForm<AccountsPayableMainFormData>({
     resolver: zodResolver(accountsPayableMainFormSchema),
     disabled: readOnly,
     defaultValues: {
+      issueDate: dayjs(new Date()),
       isPaidOut: false,
     },
   });
@@ -58,6 +60,8 @@ export function AccountsPayableFormPage() {
         form.setValue("description", data.description);
         form.setValue("value", data.value);
         form.setValue("isPaidOut", data.isPaidOut);
+
+        setIsPaidOut(data.isPaidOut);
       } catch (error) {
         handleError(error, dispatch);
       }
@@ -114,7 +118,7 @@ export function AccountsPayableFormPage() {
           </Form.TabList>
 
           <Form.TabPanel value="1">
-            <MainForm />
+            <MainForm isPaidOut={isPaidOut} setIsPaidOut={setIsPaidOut} />
           </Form.TabPanel>
 
           <Form.TabActions readOnly={readOnly} loading={loading} />
