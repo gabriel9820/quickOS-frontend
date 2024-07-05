@@ -1,6 +1,6 @@
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
-import { StatusChip } from "../../../components/DataTable/StatusChip";
+import { StatusChip } from "../../../components/Chips/StatusChip";
 import { ServiceOutputModel } from "../../../models/service.model";
 import { formatDecimal } from "../../../utils/format";
 

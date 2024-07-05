@@ -1,7 +1,9 @@
-import { GridColDef } from "@mui/x-data-grid";
+import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 
 import { formatDecimal } from "../../../utils/format";
+import { AccountPayableOutputModel } from "../../../models/account-payable.model";
+import { BooleanChip } from "../../../components/Chips/BooleanChip";
 
 export const columns: GridColDef[] = [
   {
@@ -23,7 +25,11 @@ export const columns: GridColDef[] = [
     field: "isPaidOut",
     headerName: "Pago",
     width: 110,
-    valueGetter: (value: boolean) => (value ? "Sim" : "Não"),
+    align: "center",
+    headerAlign: "center",
+    renderCell: (
+      params: GridRenderCellParams<AccountPayableOutputModel, boolean>
+    ) => <BooleanChip>{params.value}</BooleanChip>,
   },
   {
     field: "paymentDate",

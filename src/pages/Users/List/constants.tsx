@@ -1,6 +1,6 @@
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
-import { StatusChip } from "../../../components/DataTable/StatusChip";
+import { StatusChip } from "../../../components/Chips/StatusChip";
 import { UserOutputModel } from "../../../models/user.model";
 import { UserRoleChip } from "../../../components/Chips/UserRoleChip";
 import { UserRole } from "../../../enums/user-role.enum";
