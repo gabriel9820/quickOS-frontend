@@ -13,6 +13,8 @@ import { UsersListPage } from "../pages/Users/List";
 import { UsersFormPage } from "../pages/Users/Form";
 import { ServiceOrdersListPage } from "../pages/ServiceOrders/List";
 import { ServiceOrdersFormPage } from "../pages/ServiceOrders/Form";
+import { AccountsPayableListPage } from "../pages/AccountsPayable/List";
+import { AccountsPayableFormPage } from "../pages/AccountsPayable/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
@@ -98,6 +100,23 @@ const routes: PrivateRoute[] = [
       {
         path: "/service-orders/:externalId",
         element: <ServiceOrdersFormPage />,
+      },
+    ],
+  },
+  {
+    path: "/accounts-payable",
+    roles: [UserRole.Admin],
+    children: [
+      { index: true, element: <AccountsPayableListPage /> },
+      {
+        path: "/accounts-payable/create",
+        element: <AccountsPayableFormPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-payable/:externalId",
+        element: <AccountsPayableFormPage />,
+        roles: [UserRole.Admin],
       },
     ],
   },

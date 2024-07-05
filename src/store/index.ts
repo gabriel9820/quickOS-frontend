@@ -7,6 +7,7 @@ import { productsReducer } from "./products";
 import { servicesReducer } from "./services";
 import { usersReducer } from "./users";
 import { serviceOrdersReducer } from "./service-orders";
+import { accountsPayableReducer } from "./accounts-payable";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     services: servicesReducer,
     users: usersReducer,
     serviceOrders: serviceOrdersReducer,
+    accountsPayable: accountsPayableReducer,
   },
 });
 
