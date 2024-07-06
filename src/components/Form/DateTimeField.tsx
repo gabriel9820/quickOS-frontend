@@ -2,8 +2,9 @@ import { DateTimePicker, DateTimePickerProps } from "@mui/x-date-pickers";
 import { Controller, useFormContext } from "react-hook-form";
 
 export interface DateTimeFieldProps extends DateTimePickerProps<never, any> {
-  label: string;
+  label?: string;
   fullWidth?: boolean;
+  disabledInput?: boolean;
   size: "small" | "medium";
 }
 
@@ -11,6 +12,7 @@ export function FormDateTimeField({
   name = "",
   fullWidth,
   size,
+  disabledInput = false,
   ...props
 }: DateTimeFieldProps) {
   const {
@@ -34,6 +36,7 @@ export function FormDateTimeField({
               InputLabelProps: { shrink: true },
               fullWidth: fullWidth,
               size: size,
+              disabled: disabledInput,
               error: !!fieldError,
               helperText: fieldError?.message?.toString(),
             },
