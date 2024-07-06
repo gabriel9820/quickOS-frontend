@@ -15,6 +15,8 @@ import { ServiceOrdersListPage } from "../pages/ServiceOrders/List";
 import { ServiceOrdersFormPage } from "../pages/ServiceOrders/Form";
 import { AccountsPayableListPage } from "../pages/AccountsPayable/List";
 import { AccountsPayableFormPage } from "../pages/AccountsPayable/Form";
+import { AccountsReceivableListPage } from "../pages/AccountsReceivable/List";
+import { AccountsReceivableFormPage } from "../pages/AccountsReceivable/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
@@ -107,7 +109,11 @@ const routes: PrivateRoute[] = [
     path: "/accounts-payable",
     roles: [UserRole.Admin],
     children: [
-      { index: true, element: <AccountsPayableListPage /> },
+      {
+        index: true,
+        element: <AccountsPayableListPage />,
+        roles: [UserRole.Admin],
+      },
       {
         path: "/accounts-payable/create",
         element: <AccountsPayableFormPage />,
@@ -116,6 +122,27 @@ const routes: PrivateRoute[] = [
       {
         path: "/accounts-payable/:externalId",
         element: <AccountsPayableFormPage />,
+        roles: [UserRole.Admin],
+      },
+    ],
+  },
+  {
+    path: "/accounts-receivable",
+    roles: [UserRole.Admin],
+    children: [
+      {
+        index: true,
+        element: <AccountsReceivableListPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-receivable/create",
+        element: <AccountsReceivableFormPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-receivable/:externalId",
+        element: <AccountsReceivableFormPage />,
         roles: [UserRole.Admin],
       },
     ],
