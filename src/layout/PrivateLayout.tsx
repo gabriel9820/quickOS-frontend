@@ -14,7 +14,7 @@ export function PrivateLayout() {
   }
 
   return (
-    <Box>
+    <Box sx={{ minWidth: "350px" }}>
       <CustomAppBar isMenuOpen={isMenuOpen} onMenuButtonClick={toggleMenu} />
 
       <SidebarMenu isOpen={isMenuOpen} />
