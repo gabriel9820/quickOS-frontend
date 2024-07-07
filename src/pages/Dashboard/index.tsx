@@ -9,7 +9,15 @@ import {
   PointOfSale,
   Widgets,
 } from "@mui/icons-material";
-import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CircularProgress,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
@@ -57,7 +65,13 @@ export function DashboardPage() {
     getDashboard();
   }, [getDashboard, accountsDate]);
 
-  if (!dashboard) return null;
+  if (!dashboard) {
+    return (
+      <Box sx={{ textAlign: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Form form={form}>
