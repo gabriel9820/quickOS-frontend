@@ -2,11 +2,12 @@ import {
   AttachMoney,
   Badge,
   Build,
+  Handyman,
   MoneyOff,
   Person,
   Widgets,
 } from "@mui/icons-material";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
@@ -91,7 +92,7 @@ export function DashboardPage() {
                   5
                 </Typography>
 
-                <Build sx={{ width: 64, height: 64 }} />
+                <Handyman sx={{ width: 64, height: 64 }} />
               </Box>
             </CardContent>
           </Card>
@@ -208,6 +209,58 @@ export function DashboardPage() {
                 </Typography>
 
                 <AttachMoney color="success" sx={{ width: 64, height: 64 }} />
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <Card>
+            <CardContent>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: 2,
+                }}
+              >
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  Ordens de Serviço
+                </Typography>
+
+                <Form.DateTimePicker
+                  name="accountsDate"
+                  views={["month", "year"]}
+                  size="small"
+                  format="MM/YYYY"
+                  sx={{ width: 140 }}
+                  disabledInput
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Stack>
+                  <Typography color="success.main" sx={{ fontWeight: "bold" }}>
+                    Aberto: 3
+                  </Typography>
+
+                  <Typography color="info.main" sx={{ fontWeight: "bold" }}>
+                    Em andamento: 5
+                  </Typography>
+
+                  <Typography color="primary.main" sx={{ fontWeight: "bold" }}>
+                    Finalizado: 1
+                  </Typography>
+                </Stack>
+
+                <Build sx={{ width: 64, height: 64 }} />
               </Box>
             </CardContent>
           </Card>
