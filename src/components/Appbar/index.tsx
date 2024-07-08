@@ -8,8 +8,10 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Theme,
   Toolbar,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import {
   Logout,
@@ -31,6 +33,9 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
   const { tenant, user } = useAppSelector((state) => state.auth);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
   const dispatch = useAppDispatch();
+  const isSmallDevice = useMediaQuery<Theme>((theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   function handleOpenUserMenu(event: MouseEvent<HTMLElement>) {
     setAnchorElUser(event.currentTarget);
@@ -68,15 +73,17 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
           <MenuIcon />
         </IconButton>
 
-        <Typography
-          sx={{
-            textAlign: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          {tenant?.name || ""}
-        </Typography>
+        {!isSmallDevice && (
+          <Typography
+            sx={{
+              textAlign: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            {tenant?.name || ""}
+          </Typography>
+        )}
 
         <Box>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
