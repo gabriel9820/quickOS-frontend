@@ -63,7 +63,7 @@ export function ServiceOrdersFormPage() {
       status: serviceOrderStatusOptions.find(
         (o) => o.key === ServiceOrderStatus.Open
       ),
-      date: dayjs(new Date()),
+      date: dayjs(),
       totalPrice: 0,
     },
   });

@@ -40,7 +40,7 @@ export function DashboardPage() {
   const form = useForm<DashboardFormData>({
     resolver: zodResolver(dashboardFormSchema),
     defaultValues: {
-      accountsDate: dayjs(new Date().toLocaleDateString()),
+      accountsDate: dayjs(),
     },
   });
   const [dashboard, setDashboard] = useState<DashboardOutputModel>();

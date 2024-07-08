@@ -40,7 +40,7 @@ export function AccountsPayableFormPage() {
     resolver: zodResolver(accountsPayableMainFormSchema),
     disabled: readOnly,
     defaultValues: {
-      issueDate: dayjs(new Date().toLocaleDateString()),
+      issueDate: dayjs().startOf("day"),
       isPaidOut: false,
     },
   });

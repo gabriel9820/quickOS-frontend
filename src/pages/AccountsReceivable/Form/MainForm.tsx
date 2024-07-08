@@ -23,7 +23,7 @@ export function MainForm({ isPaidOut, setIsPaidOut }: Props) {
     setIsPaidOut(checked);
 
     if (checked) {
-      setValue("paymentDate", dayjs(new Date().toLocaleDateString()));
+      setValue("paymentDate", dayjs().startOf("day"));
     } else {
       resetField("paymentDate");
     }
