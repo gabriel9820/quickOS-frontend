@@ -173,7 +173,7 @@ export function DashboardPage() {
         </Grid>
 
         <Grid item xs={12} lg={6}>
-          <Card>
+          <Card sx={{ minHeight: 175 }}>
             <CardContent>
               <Box
                 sx={{
@@ -227,7 +227,7 @@ export function DashboardPage() {
         {isAdmin && (
           <>
             <Grid item xs={12} lg={6}>
-              <Card>
+              <Card sx={{ minHeight: 175 }}>
                 <CardContent>
                   <Box
                     sx={{
@@ -278,7 +278,7 @@ export function DashboardPage() {
             </Grid>
 
             <Grid item xs={12} lg={6}>
-              <Card>
+              <Card sx={{ minHeight: 175 }}>
                 <CardContent>
                   <Box
                     sx={{
@@ -327,7 +327,7 @@ export function DashboardPage() {
             </Grid>
 
             <Grid item xs={12} lg={6}>
-              <Card>
+              <Card sx={{ minHeight: 175 }}>
                 <CardContent>
                   <Box
                     sx={{
