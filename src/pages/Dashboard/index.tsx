@@ -205,15 +205,15 @@ export function DashboardPage() {
                 }}
               >
                 <Stack>
-                  <Typography sx={{ fontWeight: "bold" }}>
+                  <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
                     {`Aberto: ${dashboard.countServiceOrders.open}`}
                   </Typography>
 
-                  <Typography sx={{ fontWeight: "bold" }}>
+                  <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
                     {`Em andamento: ${dashboard.countServiceOrders.inProgress}`}
                   </Typography>
 
-                  <Typography sx={{ fontWeight: "bold" }}>
+                  <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
                     {`Finalizado: ${dashboard.countServiceOrders.completed}`}
                   </Typography>
                 </Stack>
@@ -285,9 +285,12 @@ export function DashboardPage() {
                       marginBottom: 2,
                     }}
                   >
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Contas a Pagar
-                    </Typography>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Contas a Pagar
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }}>(em aberto)</Typography>
+                    </Box>
 
                     <Form.DateTimePicker
                       name="accountsDate"
@@ -331,9 +334,12 @@ export function DashboardPage() {
                       marginBottom: 2,
                     }}
                   >
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Contas a Receber
-                    </Typography>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Contas a Receber
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }}>(em aberto)</Typography>
+                    </Box>
 
                     <Form.DateTimePicker
                       name="accountsDate"
