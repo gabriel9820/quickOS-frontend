@@ -237,9 +237,12 @@ export function DashboardPage() {
                       marginBottom: 2,
                     }}
                   >
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Lucro do mês
-                    </Typography>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        Lucro do mês
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }}>(em caixa)</Typography>
+                    </Box>
 
                     <Form.DateTimePicker
                       name="accountsDate"
