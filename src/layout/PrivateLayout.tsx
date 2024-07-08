@@ -7,7 +7,7 @@ import { CustomAppBar } from "../components/Appbar";
 
 export function PrivateLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
-  const margin = { sm: "10px", lg: "100px", xl: "200px" };
+  const margin = { sm: "10px", lg: "80px", xl: "160px" };
 
   function toggleMenu() {
     setIsMenuOpen((open) => !open);
