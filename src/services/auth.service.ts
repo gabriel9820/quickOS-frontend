@@ -7,6 +7,10 @@ export async function loginAsync(email: string, password: string) {
   return api.post<AuthOutputModel>("/auth/login", { email, password });
 }
 
+export async function refreshTokenAsync() {
+  return api.post<void>("/auth/refresh-token");
+}
+
 export async function forgotPasswordAsync(email: string) {
   return api.post<void>("/auth/forgot-password", { email });
 }
