@@ -35,7 +35,7 @@ export const customersMainFormSchema = z.object({
     .regex(cellphoneRegex, "Celular é inválido"),
   email: z.string().min(1, "Email é obrigatório").email("Email inválido"),
   isActive: z.coerce.boolean({ required_error: "Status é obrigatório" }),
-  address: customersAddressFormSchema,
+  address: customersAddressFormSchema.nullable().optional(),
 });
 
 export type CustomersMainFormData = z.infer<typeof customersMainFormSchema>;
