@@ -40,7 +40,7 @@ export function AccountsPayableFormPage() {
     resolver: zodResolver(accountsPayableMainFormSchema),
     disabled: readOnly,
     defaultValues: {
-      issueDate: dayjs(new Date().toISOString().split("T")[0]),
+      issueDate: dayjs(new Date().toLocaleDateString()),
       isPaidOut: false,
     },
   });
@@ -83,9 +83,9 @@ export function AccountsPayableFormPage() {
     try {
       const dto: AccountPayableInputModel = {
         ...formData,
-        issueDate: formData.issueDate.toISOString().split("T")[0],
-        dueDate: formData.dueDate.toISOString().split("T")[0],
-        paymentDate: formData.paymentDate?.toISOString().split("T")[0],
+        issueDate: formData.issueDate.format("YYYY-MM-DD"),
+        dueDate: formData.dueDate.format("YYYY-MM-DD"),
+        paymentDate: formData.paymentDate?.format("YYYY-MM-DD"),
       };
 
       setLoading(true);

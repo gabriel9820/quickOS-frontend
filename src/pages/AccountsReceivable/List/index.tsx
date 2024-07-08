@@ -65,9 +65,9 @@ export function AccountsReceivableListPage() {
     dispatch(
       changeFiltersAccountReceivable({
         ...filtersFormData,
-        issueDate: filtersFormData.issueDate?.toISOString().split("T")[0],
-        dueDate: filtersFormData.dueDate?.toISOString().split("T")[0],
-        paymentDate: filtersFormData.paymentDate?.toISOString().split("T")[0],
+        issueDate: filtersFormData.issueDate?.format("YYYY-MM-DD"),
+        dueDate: filtersFormData.dueDate?.format("YYYY-MM-DD"),
+        paymentDate: filtersFormData.paymentDate?.format("YYYY-MM-DD"),
       })
     );
   }
