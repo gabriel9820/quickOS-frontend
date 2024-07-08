@@ -19,12 +19,14 @@ export const columns: GridColDef[] = [
     field: "customer",
     headerName: "Cliente",
     flex: 1,
+    minWidth: 130,
     valueGetter: (value: CustomerOutputModel) => value.fullName,
   },
   {
     field: "technician",
     headerName: "Técnico",
     flex: 1,
+    minWidth: 130,
     valueGetter: (value: UserOutputModel) => value.fullName,
   },
   {

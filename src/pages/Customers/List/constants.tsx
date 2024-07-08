@@ -7,7 +7,7 @@ import { CustomerType } from "../../../enums/customer-type.enum";
 
 export const columns: GridColDef[] = [
   { field: "code", headerName: "Código", width: 150 },
-  { field: "fullName", headerName: "Nome", flex: 1 },
+  { field: "fullName", headerName: "Nome", flex: 1, minWidth: 110 },
   {
     field: "type",
     headerName: "Tipo de Pessoa",

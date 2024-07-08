@@ -6,8 +6,8 @@ import { UserRoleChip } from "../../../components/Chips/UserRoleChip";
 import { UserRole } from "../../../enums/user-role.enum";
 
 export const columns: GridColDef[] = [
-  { field: "fullName", headerName: "Nome", flex: 1 },
-  { field: "email", headerName: "Email", flex: 1 },
+  { field: "fullName", headerName: "Nome", flex: 1, minWidth: 110 },
+  { field: "email", headerName: "Email", flex: 1, minWidth: 110 },
   {
     field: "role",
     headerName: "Função",

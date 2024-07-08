@@ -7,7 +7,7 @@ import { UnitOfMeasurementOutputModel } from "../../../models/unit-of-measuremen
 
 export const columns: GridColDef[] = [
   { field: "code", headerName: "Código", width: 150 },
-  { field: "name", headerName: "Nome", flex: 1 },
+  { field: "name", headerName: "Nome", flex: 1, minWidth: 110 },
   {
     field: "sellingPrice",
     headerName: "Preço de Venda",

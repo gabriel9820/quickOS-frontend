@@ -13,7 +13,7 @@ export const columns: GridColDef[] = [
     valueFormatter: (value: Date) => dayjs(value).format("DD/MM/YYYY"),
   },
   { field: "documentNumber", headerName: "Nº Doc.", width: 120 },
-  { field: "description", headerName: "Descrição", flex: 1 },
+  { field: "description", headerName: "Descrição", flex: 1, minWidth: 140 },
   {
     field: "value",
     headerName: "Valor",

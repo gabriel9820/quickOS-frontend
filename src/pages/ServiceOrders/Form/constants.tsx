@@ -10,6 +10,7 @@ export const serviceColumns: GridColDef[] = [
     field: "service",
     headerName: "Serviço",
     flex: 1,
+    minWidth: 130,
     valueGetter: (value: ServiceOutputModel) => value.name,
   },
   {
@@ -41,6 +42,7 @@ export const productColumns: GridColDef[] = [
     field: "product",
     headerName: "Produto",
     flex: 1,
+    minWidth: 130,
     valueGetter: (value: ProductOutputModel) => value.name,
   },
   {
