@@ -36,7 +36,7 @@ export function FormDateTimeField({
               InputLabelProps: { shrink: true },
               fullWidth: fullWidth,
               size: size,
-              disabled: disabledInput || field.disabled,
+              disabled: disabledInput || field.disabled || props.disabled,
               error: !!fieldError,
               helperText: fieldError?.message?.toString(),
             },
