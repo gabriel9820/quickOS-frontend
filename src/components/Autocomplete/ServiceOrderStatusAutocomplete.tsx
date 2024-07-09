@@ -4,6 +4,7 @@ import { ServiceOrderStatus } from "../../enums/service-order-status.enum";
 interface StatusOption {
   key: ServiceOrderStatus;
   label: string;
+  disabled?: boolean;
 }
 
 const serviceOrderStatusOptions: readonly StatusOption[] = [
@@ -13,7 +14,7 @@ const serviceOrderStatusOptions: readonly StatusOption[] = [
   { key: ServiceOrderStatus.Approved, label: "Orçamento Aprovado" },
   { key: ServiceOrderStatus.Rejected, label: "Orçamento Rejeitado" },
   { key: ServiceOrderStatus.Completed, label: "Finalizado" },
-  { key: ServiceOrderStatus.Invoiced, label: "Faturado" },
+  { key: ServiceOrderStatus.Invoiced, label: "Faturado", disabled: true },
 ];
 
 function ServiceOrderStatusAutocomplete(
@@ -24,6 +25,7 @@ function ServiceOrderStatusAutocomplete(
       {...props}
       options={serviceOrderStatusOptions}
       isOptionEqualToValue={(option, value) => option.key === value.key}
+      getOptionDisabled={(option) => !!option.disabled}
     />
   );
 }
