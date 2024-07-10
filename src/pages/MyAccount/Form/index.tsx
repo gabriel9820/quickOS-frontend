@@ -33,6 +33,9 @@ export function MyAccountFormPage() {
 
   const formAccount = useForm<MyAccountMainFormData>({
     resolver: zodResolver(myAccountMainFormSchema),
+    defaultValues: {
+      isActive: false,
+    },
   });
 
   const formPassword = useForm<MyAccountPasswordFormData>({
