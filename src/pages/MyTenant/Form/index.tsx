@@ -59,7 +59,7 @@ export function MyTenantFormPage() {
         })
       );
 
-      navigate(-1);
+      navigate("/dashboard");
     } catch (error) {
       setLoading(false);
       handleError(error, dispatch);

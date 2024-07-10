@@ -23,3 +23,13 @@ export interface UserQueryParams extends Pagination {
   roles?: UserRole[];
   isActive?: boolean;
 }
+
+export interface UserProfileInputModel {
+  fullName: string;
+  cellphone: string;
+}
+
+export interface ChangePasswordInputModel {
+  currentPassword: string;
+  newPassword: string;
+}

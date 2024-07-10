@@ -52,6 +52,11 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
     handleCloseUserMenu();
   }
 
+  function handleMyAccountClick() {
+    navigate("/my-account");
+    handleCloseUserMenu();
+  }
+
   function handleLogoutClick() {
     dispatch(logoutUser());
   }
@@ -125,7 +130,7 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
               </MenuItem>
             )}
 
-            <MenuItem disabled>
+            <MenuItem onClick={handleMyAccountClick}>
               <ListItemIcon>
                 <ManageAccounts />
               </ListItemIcon>

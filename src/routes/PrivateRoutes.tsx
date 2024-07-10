@@ -18,6 +18,7 @@ import { AccountsPayableFormPage } from "../pages/AccountsPayable/Form";
 import { AccountsReceivableListPage } from "../pages/AccountsReceivable/List";
 import { AccountsReceivableFormPage } from "../pages/AccountsReceivable/Form";
 import { MyTenantFormPage } from "../pages/MyTenant/Form";
+import { MyAccountFormPage } from "../pages/MyAccount/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
@@ -152,6 +153,10 @@ const routes: PrivateRoute[] = [
     path: "/my-tenant",
     roles: [UserRole.Admin],
     element: <MyTenantFormPage />,
+  },
+  {
+    path: "/my-account",
+    element: <MyAccountFormPage />,
   },
 ];
 
