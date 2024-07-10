@@ -1,8 +1,9 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 
 import { AuthReducerProps } from "./constants";
-import { loginUser, logoutUser } from "./actions";
+import { loginUser, logoutUser, updateTenant } from "./actions";
 import { AuthOutputModel } from "../../models/auth.model";
+import { TenantOutputModel } from "../../models/tenant.model";
 
 const INITIAL_STATE = {
   isLoggedIn: false,
@@ -26,4 +27,11 @@ export const authReducer = createReducer<AuthReducerProps>(
         user: undefined,
         tenant: undefined,
       }))
+      .addCase(
+        updateTenant,
+        (state, action: PayloadAction<TenantOutputModel>) => ({
+          ...state,
+          tenant: action.payload,
+        })
+      )
 );

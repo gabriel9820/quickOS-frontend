@@ -19,6 +19,7 @@ import {
   Menu as MenuIcon,
   Store,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logoutUser } from "../../store/auth/actions";
@@ -30,9 +31,10 @@ interface Props {
 }
 
 export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { tenant, user } = useAppSelector((state) => state.auth);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
-  const dispatch = useAppDispatch();
   const isSmallDevice = useMediaQuery<Theme>((theme) =>
     theme.breakpoints.down("sm")
   );
@@ -43,6 +45,11 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
 
   function handleCloseUserMenu() {
     setAnchorElUser(null);
+  }
+
+  function handleMyTenantClick() {
+    navigate("/my-tenant");
+    handleCloseUserMenu();
   }
 
   function handleLogoutClick() {
@@ -110,7 +117,7 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
             }}
           >
             {user?.role === UserRole.Admin && (
-              <MenuItem disabled>
+              <MenuItem onClick={handleMyTenantClick}>
                 <ListItemIcon>
                   <Store />
                 </ListItemIcon>
