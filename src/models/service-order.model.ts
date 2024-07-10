@@ -1,3 +1,4 @@
+import { PaymentType } from "../enums/payment-type.enum";
 import { ServiceOrderStatus } from "../enums/service-order-status.enum";
 import { CustomerOutputModel } from "./customer.model";
 import { Pagination } from "./pagination.model";
@@ -68,4 +69,10 @@ export interface ServiceOrderProductInputModel extends ServiceOrderProduct {
 export interface ServiceOrderProductOutputModel extends ServiceOrderProduct {
   product: Partial<ProductOutputModel>;
   totalPrice: number;
+}
+
+export interface ServiceOrderInvoiceInputModel {
+  paymentType: PaymentType;
+  now: string;
+  dueDate?: string;
 }

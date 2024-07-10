@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Box } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
+import { RequestQuote } from "@mui/icons-material";
 
 import { ListTitle } from "../../../components/ListTitle";
 import { UserRole } from "../../../enums/user-role.enum";
@@ -24,6 +25,7 @@ import {
 import { Form } from "../../../components/Form";
 import { Filters } from "../../../components/Filters";
 import { FiltersForm } from "./FiltersForm";
+import { InvoiceDialog } from "./InvoiceDialog";
 
 export function ServiceOrdersListPage() {
   const { pagedResult, isLoading, pagination, filters, sorting } =
@@ -33,6 +35,8 @@ export function ServiceOrdersListPage() {
   const form = useForm<ServiceOrdersFiltersFormData>({
     resolver: zodResolver(serviceOrdersFiltersFormSchema),
   });
+  const [openInvoiceDialog, setOpenInvoiceDialog] = useState(false);
+  const [serviceOrderExternalId, setServiceOrderExternalId] = useState("");
 
   useEffect(() => {
     dispatch(getAllServiceOrders());
@@ -86,6 +90,16 @@ export function ServiceOrdersListPage() {
     }
   }
 
+  function handleInvoiceClick(id: string) {
+    setServiceOrderExternalId(id);
+    setOpenInvoiceDialog(true);
+  }
+
+  function handleCloseInvoiceDialog() {
+    setServiceOrderExternalId("");
+    setOpenInvoiceDialog(false);
+  }
+
   return (
     <Box>
       <ListTitle createPermission={[UserRole.Admin, UserRole.Attendant]}>
@@ -110,15 +124,32 @@ export function ServiceOrdersListPage() {
           pageSize: pagination.pageSize,
         }}
         sortModel={[{ field: sorting.orderBy, sort: sorting.orderDirection }]}
+        actionsColumnWidth={140}
         renderActions={({ id }) => (
-          <DataTable.Actions
-            onViewClick={() => handleViewClick(id.toString())}
-            onEditClick={() => handleEditClick(id.toString())}
-            deletePermission={[UserRole.Admin, UserRole.Attendant]}
-            onDeleteClick={() => handleDeleteClick(id.toString())}
-          />
+          <>
+            <DataTable.MoreActions>
+              <DataTable.ActionItem
+                text="Faturar"
+                icon={<RequestQuote />}
+                onClick={() => handleInvoiceClick(id.toString())}
+              />
+            </DataTable.MoreActions>
+
+            <DataTable.Actions
+              onViewClick={() => handleViewClick(id.toString())}
+              onEditClick={() => handleEditClick(id.toString())}
+              deletePermission={[UserRole.Admin, UserRole.Attendant]}
+              onDeleteClick={() => handleDeleteClick(id.toString())}
+            />
+          </>
         )}
         sx={{ marginTop: 3 }}
+      />
+
+      <InvoiceDialog
+        open={openInvoiceDialog}
+        serviceOrderExternalId={serviceOrderExternalId}
+        onClose={handleCloseInvoiceDialog}
       />
     </Box>
   );

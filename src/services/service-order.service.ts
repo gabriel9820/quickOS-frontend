@@ -4,6 +4,7 @@ import { api } from "./api";
 import { PagedResult } from "../models/pagination.model";
 import {
   ServiceOrderInputModel,
+  ServiceOrderInvoiceInputModel,
   ServiceOrderOutputModel,
   ServiceOrderQueryParams,
 } from "../models/service-order.model";
@@ -35,6 +36,13 @@ export async function updateServiceOrderAsync(
   data: ServiceOrderInputModel
 ) {
   return api.put<ServiceOrderOutputModel>(`/service-order/${externalId}`, data);
+}
+
+export async function invoiceServiceOrderAsync(
+  externalId: string,
+  data: ServiceOrderInvoiceInputModel
+) {
+  return api.patch<void>(`/service-order/${externalId}`, data);
 }
 
 export async function deleteServiceOrderAsync(externalId: string) {
