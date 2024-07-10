@@ -6,9 +6,19 @@ import {
   isValidElement,
   useState,
 } from "react";
-import { Box, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
+import { UserRole } from "../../enums/user-role.enum";
+import { useAppSelector } from "../../store/hooks";
+import { isInRole } from "../../utils/auth";
 
 export interface MoreActionsProps extends PropsWithChildren {}
 
@@ -55,6 +65,7 @@ function MoreActions({ children }: MoreActionsProps) {
 export interface ActionItemProps {
   text: string;
   icon?: ReactNode;
+  permission?: UserRole[];
   onClick: () => void;
   handleCloseMenuClick?: () => void;
 }
@@ -62,19 +73,28 @@ export interface ActionItemProps {
 function ActionItem({
   text,
   icon,
+  permission,
   onClick,
   handleCloseMenuClick,
 }: ActionItemProps) {
+  const { user } = useAppSelector((state) => state.auth);
+
+  const hasPermission = isInRole(permission, user!);
+
   function handleOnClick() {
     onClick();
     handleCloseMenuClick && handleCloseMenuClick();
   }
 
   return (
-    <MenuItem onClick={handleOnClick}>
-      {icon && <ListItemIcon>{icon}</ListItemIcon>}
-      <ListItemText>{text}</ListItemText>
-    </MenuItem>
+    <Tooltip placement="left" title={hasPermission ? "" : "Sem permissão"}>
+      <span>
+        <MenuItem disabled={!hasPermission} onClick={handleOnClick}>
+          {icon && <ListItemIcon>{icon}</ListItemIcon>}
+          <ListItemText>{text}</ListItemText>
+        </MenuItem>
+      </span>
+    </Tooltip>
   );
 }
 

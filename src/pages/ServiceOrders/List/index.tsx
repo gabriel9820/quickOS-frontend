@@ -131,6 +131,7 @@ export function ServiceOrdersListPage() {
               <DataTable.ActionItem
                 text="Faturar"
                 icon={<RequestQuote />}
+                permission={[UserRole.Admin, UserRole.Attendant]}
                 onClick={() => handleInvoiceClick(id.toString())}
               />
             </DataTable.MoreActions>
