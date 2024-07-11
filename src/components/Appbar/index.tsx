@@ -8,8 +8,10 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Theme,
   Toolbar,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import {
   Logout,
@@ -17,6 +19,7 @@ import {
   Menu as MenuIcon,
   Store,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logoutUser } from "../../store/auth/actions";
@@ -28,9 +31,13 @@ interface Props {
 }
 
 export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { tenant, user } = useAppSelector((state) => state.auth);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
-  const dispatch = useAppDispatch();
+  const isSmallDevice = useMediaQuery<Theme>((theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   function handleOpenUserMenu(event: MouseEvent<HTMLElement>) {
     setAnchorElUser(event.currentTarget);
@@ -38,6 +45,16 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
 
   function handleCloseUserMenu() {
     setAnchorElUser(null);
+  }
+
+  function handleMyTenantClick() {
+    navigate("/my-tenant");
+    handleCloseUserMenu();
+  }
+
+  function handleMyAccountClick() {
+    navigate("/my-account");
+    handleCloseUserMenu();
   }
 
   function handleLogoutClick() {
@@ -68,15 +85,17 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
           <MenuIcon />
         </IconButton>
 
-        <Typography
-          sx={{
-            textAlign: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          {tenant?.name || ""}
-        </Typography>
+        {!isSmallDevice && (
+          <Typography
+            sx={{
+              textAlign: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            {tenant?.name || ""}
+          </Typography>
+        )}
 
         <Box>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -103,7 +122,7 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
             }}
           >
             {user?.role === UserRole.Admin && (
-              <MenuItem disabled>
+              <MenuItem onClick={handleMyTenantClick}>
                 <ListItemIcon>
                   <Store />
                 </ListItemIcon>
@@ -111,7 +130,7 @@ export function CustomAppBar({ isMenuOpen, onMenuButtonClick }: Props) {
               </MenuItem>
             )}
 
-            <MenuItem disabled>
+            <MenuItem onClick={handleMyAccountClick}>
               <ListItemIcon>
                 <ManageAccounts />
               </ListItemIcon>

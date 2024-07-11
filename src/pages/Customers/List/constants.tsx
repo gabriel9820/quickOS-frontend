@@ -1,13 +1,13 @@
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
-import { StatusChip } from "../../../components/DataTable/StatusChip";
+import { StatusChip } from "../../../components/Chips/StatusChip";
 import { CustomerOutputModel } from "../../../models/customer.model";
 import { customerTypeOptions } from "../../../components/Autocomplete/CustomerTypeAutocomplete";
 import { CustomerType } from "../../../enums/customer-type.enum";
 
 export const columns: GridColDef[] = [
   { field: "code", headerName: "Código", width: 150 },
-  { field: "fullName", headerName: "Nome", flex: 1 },
+  { field: "fullName", headerName: "Nome", flex: 1, minWidth: 110 },
   {
     field: "type",
     headerName: "Tipo de Pessoa",

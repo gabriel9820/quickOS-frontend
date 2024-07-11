@@ -3,21 +3,28 @@ import { useEffect, useState } from "react";
 import { BaseAutocomplete, BaseAutocompleteProps } from "./BaseAutocomplete";
 import { UnitOfMeasurementOutputModel } from "../../models/unit-of-measurement.model";
 import { fillUnitOfMeasurementAutoCompleteAsync } from "../../services/unit-of-measurement.service";
+import { useAppDispatch } from "../../store/hooks";
+import { handleError } from "../../utils/error-handler";
 
 export function UnitOfMeasurementAutocomplete(
   props: BaseAutocompleteProps<UnitOfMeasurementOutputModel>
 ) {
+  const dispatch = useAppDispatch();
   const [options, setOptions] = useState<UnitOfMeasurementOutputModel[]>([]);
 
   useEffect(() => {
     async function fill() {
-      const { data } = await fillUnitOfMeasurementAutoCompleteAsync();
+      try {
+        const { data } = await fillUnitOfMeasurementAutoCompleteAsync();
 
-      setOptions(data);
+        setOptions(data);
+      } catch (error) {
+        handleError(error, dispatch);
+      }
     }
 
     fill();
-  }, []);
+  }, [dispatch]);
 
   return (
     <BaseAutocomplete

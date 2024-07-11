@@ -35,6 +35,18 @@ export function ProductsListPage() {
     dispatch(getAllProducts());
   }, [dispatch, pagination, filters, sorting]);
 
+  useEffect(() => {
+    if (filters) {
+      form.setValue("code", filters.code);
+      form.setValue("name", filters.name);
+      form.setValue("sellingPrice", filters.sellingPrice);
+      form.setValue("stock", filters.stock);
+      form.setValue("unitsOfMeasurement", filters.unitsOfMeasurement);
+      form.setValue("isActive", filters.isActive);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });
   }

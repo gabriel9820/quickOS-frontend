@@ -13,7 +13,7 @@ interface Customer {
 }
 
 export interface CustomerInputModel extends Customer {
-  address?: AddressInputModel;
+  address?: AddressInputModel | null;
 }
 
 export interface CustomerOutputModel extends Customer {

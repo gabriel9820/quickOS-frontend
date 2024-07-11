@@ -38,7 +38,10 @@ export function BaseAutocomplete<T>({ name, label, ...props }: Props<T>) {
         <Autocomplete
           {...props}
           {...field}
-          onChange={(_, data) => onChange(data)}
+          onChange={(_, data, reason, details) => {
+            onChange(data);
+            props.onChange && props.onChange(_, data, reason, details);
+          }}
           filterSelectedOptions
           noOptionsText="Sem dados"
           loadingText="Carregando..."

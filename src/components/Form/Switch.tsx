@@ -24,7 +24,17 @@ export function FormSwitch({ name = "", label, ...props }: FormSwitchProps) {
       render={({ field }) => (
         <>
           <FormControlLabel
-            control={<Switch {...props} {...field} checked={field.value} />}
+            control={
+              <Switch
+                {...props}
+                {...field}
+                onChange={(event, checked) => {
+                  field.onChange(event, checked);
+                  props.onChange && props.onChange(event, checked);
+                }}
+                checked={field.value}
+              />
+            }
             label={label}
           />
           {fieldError && (

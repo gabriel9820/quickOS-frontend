@@ -11,6 +11,14 @@ import { ServicesListPage } from "../pages/Services/List";
 import { ServicesFormPage } from "../pages/Services/Form";
 import { UsersListPage } from "../pages/Users/List";
 import { UsersFormPage } from "../pages/Users/Form";
+import { ServiceOrdersListPage } from "../pages/ServiceOrders/List";
+import { ServiceOrdersFormPage } from "../pages/ServiceOrders/Form";
+import { AccountsPayableListPage } from "../pages/AccountsPayable/List";
+import { AccountsPayableFormPage } from "../pages/AccountsPayable/Form";
+import { AccountsReceivableListPage } from "../pages/AccountsReceivable/List";
+import { AccountsReceivableFormPage } from "../pages/AccountsReceivable/Form";
+import { MyTenantFormPage } from "../pages/MyTenant/Form";
+import { MyAccountFormPage } from "../pages/MyAccount/Form";
 
 type PrivateRoute = RouteObject & {
   children?: any;
@@ -83,6 +91,72 @@ const routes: PrivateRoute[] = [
         roles: [UserRole.Admin],
       },
     ],
+  },
+  {
+    path: "/service-orders",
+    children: [
+      { index: true, element: <ServiceOrdersListPage /> },
+      {
+        path: "/service-orders/create",
+        element: <ServiceOrdersFormPage />,
+        roles: [UserRole.Admin, UserRole.Attendant],
+      },
+      {
+        path: "/service-orders/:externalId",
+        element: <ServiceOrdersFormPage />,
+      },
+    ],
+  },
+  {
+    path: "/accounts-payable",
+    roles: [UserRole.Admin],
+    children: [
+      {
+        index: true,
+        element: <AccountsPayableListPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-payable/create",
+        element: <AccountsPayableFormPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-payable/:externalId",
+        element: <AccountsPayableFormPage />,
+        roles: [UserRole.Admin],
+      },
+    ],
+  },
+  {
+    path: "/accounts-receivable",
+    roles: [UserRole.Admin],
+    children: [
+      {
+        index: true,
+        element: <AccountsReceivableListPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-receivable/create",
+        element: <AccountsReceivableFormPage />,
+        roles: [UserRole.Admin],
+      },
+      {
+        path: "/accounts-receivable/:externalId",
+        element: <AccountsReceivableFormPage />,
+        roles: [UserRole.Admin],
+      },
+    ],
+  },
+  {
+    path: "/my-tenant",
+    roles: [UserRole.Admin],
+    element: <MyTenantFormPage />,
+  },
+  {
+    path: "/my-account",
+    element: <MyAccountFormPage />,
   },
 ];
 

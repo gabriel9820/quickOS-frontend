@@ -22,6 +22,7 @@ import {
   FormIntegerField,
   NumberFieldProps,
 } from "./NumberField";
+import { DateTimeFieldProps, FormDateTimeField } from "./DateTimeField";
 
 interface Props<T extends FieldValues> extends PropsWithChildren {
   form: UseFormReturn<T>;
@@ -57,5 +58,6 @@ Form.TextField = (props: TextFieldProps) => FormTextField(props);
 Form.Switch = (props: FormSwitchProps) => FormSwitch(props);
 Form.DecimalField = (props: NumberFieldProps) => FormDecimalField(props);
 Form.IntegerField = (props: NumberFieldProps) => FormIntegerField(props);
+Form.DateTimePicker = (props: DateTimeFieldProps) => FormDateTimeField(props);
 
 export { Form };

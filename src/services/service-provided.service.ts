@@ -16,6 +16,10 @@ export async function getAllServicesAsync(params: ServiceQueryParams) {
   );
 }
 
+export async function fillServiceAutoCompleteAsync() {
+  return api.get<ServiceOutputModel[]>(`/service-provided/fill-autocomplete`);
+}
+
 export async function getServiceAsync(externalId: string) {
   return api.get<ServiceOutputModel>(`/service-provided/${externalId}`);
 }
