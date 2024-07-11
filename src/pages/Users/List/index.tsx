@@ -35,6 +35,16 @@ export function UsersListPage() {
     dispatch(getAllUsers());
   }, [dispatch, pagination, filters, sorting]);
 
+  useEffect(() => {
+    if (filters) {
+      form.setValue("fullName", filters.fullName);
+      form.setValue("email", filters.email);
+      form.setValue("roles", filters.roles);
+      form.setValue("isActive", filters.isActive);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });
   }

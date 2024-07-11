@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 
 import { ListTitle } from "../../../components/ListTitle";
 import { Form } from "../../../components/Form";
@@ -37,6 +38,26 @@ export function AccountsPayableListPage() {
   useEffect(() => {
     dispatch(getAllAccountsPayable());
   }, [dispatch, pagination, filters, sorting]);
+
+  useEffect(() => {
+    if (filters) {
+      form.setValue(
+        "issueDate",
+        filters.issueDate ? dayjs(filters.issueDate) : undefined
+      );
+      form.setValue(
+        "dueDate",
+        filters.dueDate ? dayjs(filters.dueDate) : undefined
+      );
+      form.setValue(
+        "paymentDate",
+        filters.paymentDate ? dayjs(filters.paymentDate) : undefined
+      );
+      form.setValue("documentNumber", filters.documentNumber);
+      form.setValue("isPaidOut", filters.isPaidOut);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });

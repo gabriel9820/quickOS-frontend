@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
 import { RequestQuote } from "@mui/icons-material";
+import dayjs from "dayjs";
 
 import { ListTitle } from "../../../components/ListTitle";
 import { UserRole } from "../../../enums/user-role.enum";
@@ -41,6 +42,17 @@ export function ServiceOrdersListPage() {
   useEffect(() => {
     dispatch(getAllServiceOrders());
   }, [dispatch, pagination, filters, sorting]);
+
+  useEffect(() => {
+    if (filters) {
+      form.setValue("number", filters.number);
+      form.setValue("date", filters.date ? dayjs(filters.date) : undefined);
+      form.setValue("status", filters.status);
+      form.setValue("customer", filters.customer);
+      form.setValue("technician", filters.technician);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });

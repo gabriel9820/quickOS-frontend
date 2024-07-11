@@ -38,6 +38,18 @@ export function CustomersListPage() {
     dispatch(getAllCustomers());
   }, [dispatch, pagination, filters, sorting]);
 
+  useEffect(() => {
+    if (filters) {
+      form.setValue("code", filters.code);
+      form.setValue("types", filters.types);
+      form.setValue("document", filters.document);
+      form.setValue("fullName", filters.fullName);
+      form.setValue("email", filters.email);
+      form.setValue("isActive", filters.isActive);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });
   }

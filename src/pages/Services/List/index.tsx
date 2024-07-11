@@ -35,6 +35,16 @@ export function ServicesListPage() {
     dispatch(getAllServices());
   }, [dispatch, pagination, filters, sorting]);
 
+  useEffect(() => {
+    if (filters) {
+      form.setValue("code", filters.code);
+      form.setValue("name", filters.name);
+      form.setValue("price", filters.price);
+      form.setValue("isActive", filters.isActive);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleViewClick(externalId: string) {
     navigate(externalId, { state: { readOnly: true } });
   }
