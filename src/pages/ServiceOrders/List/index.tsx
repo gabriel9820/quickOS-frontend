@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Box } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
-import { RequestQuote } from "@mui/icons-material";
+import { PictureAsPdf, RequestQuote } from "@mui/icons-material";
 import dayjs from "dayjs";
 
 import { ListTitle } from "../../../components/ListTitle";
@@ -27,6 +27,8 @@ import { Form } from "../../../components/Form";
 import { Filters } from "../../../components/Filters";
 import { FiltersForm } from "./FiltersForm";
 import { InvoiceDialog } from "./InvoiceDialog";
+import { handleError } from "../../../utils/error-handler";
+import { getServiceOrderPDFAsync } from "../../../services/service-order.service";
 
 export function ServiceOrdersListPage() {
   const { pagedResult, isLoading, pagination, filters, sorting } =
@@ -112,6 +114,15 @@ export function ServiceOrdersListPage() {
     setOpenInvoiceDialog(false);
   }
 
+  async function handleGeneratePdfClick(id: string) {
+    try {
+      const { data } = await getServiceOrderPDFAsync(id);
+      window.open(URL.createObjectURL(data));
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  }
+
   return (
     <Box>
       <ListTitle createPermission={[UserRole.Admin, UserRole.Attendant]}>
@@ -145,6 +156,11 @@ export function ServiceOrdersListPage() {
                 icon={<RequestQuote />}
                 permission={[UserRole.Admin, UserRole.Attendant]}
                 onClick={() => handleInvoiceClick(id.toString())}
+              />
+              <DataTable.ActionItem
+                text="Gerar PDF"
+                icon={<PictureAsPdf />}
+                onClick={() => handleGeneratePdfClick(id.toString())}
               />
             </DataTable.MoreActions>
 

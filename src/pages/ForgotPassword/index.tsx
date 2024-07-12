@@ -10,7 +10,7 @@ import { Form } from "../../components/Form";
 import { ForgotPasswordFormData, forgotPasswordFormSchema } from "./schemas";
 import { handleError } from "../../utils/error-handler";
 import { useAppDispatch } from "../../store/hooks";
-import { forgotPasswordAsync } from "../../services/auth.service";
+import { sendResetPasswordLinkAsync } from "../../services/auth.service";
 import { addNotification } from "../../store/notification/actions";
 
 export function ForgotPasswordPage() {
@@ -24,13 +24,13 @@ export function ForgotPasswordPage() {
   async function handleSendEmailClick(formData: ForgotPasswordFormData) {
     try {
       setLoading(true);
-      await forgotPasswordAsync(formData.email);
+      await sendResetPasswordLinkAsync(formData.email);
       setLoading(false);
 
       dispatch(
         addNotification({
           type: "success",
-          message: "As instruções foram enviadas para o seu email",
+          message: "As instruções foram enviadas para o seu email, verifique seu spam",
         })
       );
       navigate("/login");
