@@ -4,6 +4,7 @@ import { AuthLayout } from "../layout/AuthLayout";
 import { LoginPage } from "../pages/Login";
 import { RegisterPage } from "../pages/Register";
 import { ForgotPasswordPage } from "../pages/ForgotPassword";
+import { ResetPasswordPage } from "../pages/ResetPassword";
 
 export function AuthRoutes(isLoggedIn: boolean): RouteObject {
   return {
@@ -21,6 +22,10 @@ export function AuthRoutes(isLoggedIn: boolean): RouteObject {
       {
         path: "/forgot-password",
         element: <ForgotPasswordPage />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPasswordPage />,
       },
     ],
   };
