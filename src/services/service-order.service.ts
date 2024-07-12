@@ -19,6 +19,12 @@ export async function getAllServiceOrdersAsync(
   );
 }
 
+export async function getServiceOrderPDFAsync(externalId: string) {
+  return api.get<Blob>(`/service-order/individual-report/${externalId}`, {
+    responseType: "blob",
+  });
+}
+
 export async function getServiceOrderAsync(externalId: string) {
   return api.get<ServiceOrderOutputModel>(`/service-order/${externalId}`);
 }
