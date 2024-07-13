@@ -4,7 +4,12 @@ import { useForm } from "react-hook-form";
 import { Box } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
-import { PictureAsPdf, RequestQuote } from "@mui/icons-material";
+import {
+  AttachEmail,
+  PictureAsPdf,
+  RequestQuote,
+  WhatsApp,
+} from "@mui/icons-material";
 import dayjs from "dayjs";
 
 import { ListTitle } from "../../../components/ListTitle";
@@ -28,7 +33,12 @@ import { Filters } from "../../../components/Filters";
 import { FiltersForm } from "./FiltersForm";
 import { InvoiceDialog } from "./InvoiceDialog";
 import { handleError } from "../../../utils/error-handler";
-import { getServiceOrderPDFAsync } from "../../../services/service-order.service";
+import {
+  getServiceOrderPDFAsync,
+  sendServiceOrderPDFByEmailAsync,
+} from "../../../services/service-order.service";
+import { addNotification } from "../../../store/notification/actions";
+import { ServiceOrderOutputModel } from "../../../models/service-order.model";
 
 export function ServiceOrdersListPage() {
   const { pagedResult, isLoading, pagination, filters, sorting } =
@@ -114,13 +124,45 @@ export function ServiceOrdersListPage() {
     setOpenInvoiceDialog(false);
   }
 
-  async function handleGeneratePdfClick(id: string) {
+  async function handleGeneratePDFClick(id: string) {
     try {
       const { data } = await getServiceOrderPDFAsync(id);
       window.open(URL.createObjectURL(data));
     } catch (error) {
       handleError(error, dispatch);
     }
+  }
+
+  async function handleSendPDFByEmailClick(id: string) {
+    try {
+      await sendServiceOrderPDFByEmailAsync(id);
+      dispatch(
+        addNotification({
+          type: "success",
+          message: "Ordem de serviço enviada por e-mail",
+        })
+      );
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  }
+
+  function handleOpenWhatsAppClick(row: ServiceOrderOutputModel) {
+    const phone = row.customer?.cellphone?.replace(/\D/g, "") || "";
+
+    if (phone.length !== 11) {
+      dispatch(
+        addNotification({
+          type: "error",
+          message: "O celular informado no cadastro do cliente é inválido",
+        })
+      );
+
+      return;
+    }
+
+    const url = `https://api.whatsapp.com/send?phone=55${phone}`;
+    window.open(url);
   }
 
   return (
@@ -148,7 +190,7 @@ export function ServiceOrdersListPage() {
         }}
         sortModel={[{ field: sorting.orderBy, sort: sorting.orderDirection }]}
         actionsColumnWidth={140}
-        renderActions={({ id }) => (
+        renderActions={({ id, row }) => (
           <>
             <DataTable.MoreActions>
               <DataTable.ActionItem
@@ -160,7 +202,18 @@ export function ServiceOrdersListPage() {
               <DataTable.ActionItem
                 text="Gerar PDF"
                 icon={<PictureAsPdf />}
-                onClick={() => handleGeneratePdfClick(id.toString())}
+                onClick={() => handleGeneratePDFClick(id.toString())}
+              />
+              <DataTable.ActionItem
+                text="Enviar PDF por e-mail"
+                icon={<AttachEmail />}
+                permission={[UserRole.Admin, UserRole.Attendant]}
+                onClick={() => handleSendPDFByEmailClick(id.toString())}
+              />
+              <DataTable.ActionItem
+                text="Abrir conversa"
+                icon={<WhatsApp />}
+                onClick={() => handleOpenWhatsAppClick(row)}
               />
             </DataTable.MoreActions>
 

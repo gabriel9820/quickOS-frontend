@@ -37,6 +37,10 @@ export async function createServiceOrderAsync(data: ServiceOrderInputModel) {
   return api.post<ServiceOrderOutputModel>("/service-order", data);
 }
 
+export async function sendServiceOrderPDFByEmailAsync(externalId: string) {
+  return api.post<void>(`/service-order/send-pdf-by-email/${externalId}`);
+}
+
 export async function updateServiceOrderAsync(
   externalId: string,
   data: ServiceOrderInputModel
