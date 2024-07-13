@@ -14,7 +14,7 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-import { MoreVert } from "@mui/icons-material";
+import { MoreHoriz } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { UserRole } from "../../enums/user-role.enum";
 import { useAppSelector } from "../../store/hooks";
@@ -44,7 +44,7 @@ function MoreActions({ children }: MoreActionsProps) {
   return (
     <Box>
       <GridActionsCellItem
-        icon={<MoreVert />}
+        icon={<MoreHoriz sx={{ borderRadius: "50%", border: "1.5px solid" }} />}
         label="Mais ações"
         onClick={handleOpenMenuClick}
         color="inherit"
