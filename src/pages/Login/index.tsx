@@ -17,10 +17,6 @@ import { handleError } from "../../utils/error-handler";
 export function LoginPage() {
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      email: "usuario@administrador.com",
-      password: "Teste@123",
-    },
   });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
