@@ -1,30 +1,89 @@
-# React + TypeScript + Vite
+<h1 align="center">
+  quickOS (frontend)
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img alt="Gabriel Alves" src="https://img.shields.io/badge/Developed%20by%3A-Gabriel Alves-%23DD3B3F" />
+  <img alt="License" src="https://img.shields.io/github/license/gabriel9820/quickos-frontend?label=License" />
+  <img alt="Typescript" src="https://img.shields.io/badge/Main%20language-Typescript-%232F74C0" />   
+</p>
 
-Currently, two official plugins are available:
+## :bookmark: Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project in question is a system for managing technical assistances, which works from registering customers, services, products and users to generating service orders and accounts payable/receivable. It was developed as a final project for my postgraduate degree in Full Stack Development at PUCRS.
 
-## Expanding the ESLint configuration
+<br />
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## :heavy_check_mark: Table of Contents
 
-- Configure the top-level `parserOptions` property like this:
+- [:bookmark: Description](#bookmark-description)
+- [:heavy\_check\_mark: Table of Contents](#heavy_check_mark-table-of-contents)
+- [:bulb: Technologies](#bulb-technologies)
+- [:computer: Demonstration](#computer-demonstration)
+- [:wrench: Running the Project](#wrench-running-the-project)
+- [:memo: License](#memo-license)
+- [:wave: Social](#wave-social)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+<br />
+
+## :bulb: Technologies
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://pt-br.react.dev/)
+- [MUI](https://mui.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [AWS Amplify](https://docs.aws.amazon.com/amplify/)
+
+<br />
+
+## :computer: Demonstration
+
+[<img alt="link" src="https://img.shields.io/badge/Demonstration-Link-blue">](https://main.d42mr3aptc73o.amplifyapp.com/login/)
+
+<p align="center">
+  <img alt="image1" src="https://i.imgur.com/dYOCWwS.png" width="800" />
+  <img alt="image2" src="https://i.imgur.com/GpLuWJQ.png" width="800" />
+
+  <img alt="image3" src="https://i.imgur.com/EGodmzL.png" width="800" />
+  <img alt="image4" src="https://i.imgur.com/iGWBtY0.png" width="800" />
+
+  <img alt="image5" src="https://i.imgur.com/nXDbUj8.png" width="800" />
+  <img alt="image6" src="https://i.imgur.com/wN08Ywy.png" width="800" />
+
+  <img alt="image7" src="https://i.imgur.com/qQ9DSK8.png" width="800" />
+</p>
+
+<br />
+
+## :wrench: Running the Project
+
+<strong> Project </strong>
+
+```bash
+# Clone
+$ git clone git@github.com:gabriel9820/quickOS-frontend.git
+
+# Create a ".env.local" file in the project root directory and copy the environment variables from the ".env.example" file, replacing the values
+
+# Install dependencies
+$ yarn install
+
+# Run the project
+$ yarn dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<br />
+
+## :memo: License
+
+This project is under license [GPL-3.0](LICENSE).
+
+<br />
+
+## :wave: Social
+
+[<img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">](https://www.linkedin.com/in/gabriel-lemos-alves/)
+
+<br />
