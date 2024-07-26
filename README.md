@@ -43,16 +43,16 @@ The project in question is a system for managing technical assistances, which wo
 [<img alt="link" src="https://img.shields.io/badge/Demonstration-Link-blue">](https://main.d42mr3aptc73o.amplifyapp.com/login/)
 
 <p align="center">
-  <img alt="image1" src="https://i.imgur.com/dYOCWwS.png" width="600" />
-  <img alt="image2" src="https://i.imgur.com/GpLuWJQ.png" width="600" />
+  <img alt="image1" src="https://i.imgur.com/dYOCWwS.png" width="800" />
+  <img alt="image2" src="https://i.imgur.com/GpLuWJQ.png" width="800" />
 
-  <img alt="image3" src="https://i.imgur.com/EGodmzL.png" width="600" />
-  <img alt="image4" src="https://i.imgur.com/iGWBtY0.png" width="600" />
+  <img alt="image3" src="https://i.imgur.com/EGodmzL.png" width="800" />
+  <img alt="image4" src="https://i.imgur.com/iGWBtY0.png" width="800" />
 
-  <img alt="image5" src="https://i.imgur.com/nXDbUj8.png" width="600" />
-  <img alt="image6" src="https://i.imgur.com/wN08Ywy.png" width="600" />
+  <img alt="image5" src="https://i.imgur.com/nXDbUj8.png" width="800" />
+  <img alt="image6" src="https://i.imgur.com/wN08Ywy.png" width="800" />
 
-  <img alt="image7" src="https://i.imgur.com/qQ9DSK8.png" width="600" />
+  <img alt="image7" src="https://i.imgur.com/qQ9DSK8.png" width="800" />
 </p>
 
 <br />
